@@ -379,3 +379,35 @@ footer {
     grid-template-columns: 1fr;
   }
 }
+
+.authentication-page {
+  background-color: #f9f1fb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.authentication-container {
+  text-align: center;
+  width: 100%;
+  max-width: 420px;
+  padding: 2rem;
+}
+
+.app-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--dark-color);
+  margin-bottom: 1rem;
+}
+
+.authentication-card {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  text-align: left;
+  margin-top: 1rem;
+}

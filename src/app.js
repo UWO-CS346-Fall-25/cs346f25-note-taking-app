@@ -97,6 +97,14 @@ app.get('/users/about', csrfProtection, (req, res) => {
   });
 });
 
+// Log in page
+app.get('/users/login', csrfProtection, (req, res) => {
+  res.render('login', {
+    title: 'Login',
+    csrfToken: req.csrfToken(),
+  });
+});
+
 // 404 handler error page
 app.use((req, res) => {
   res.status(404).render('error', {

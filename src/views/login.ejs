@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About WebNote</title>
+  <title>Log In</title>
   <link rel="stylesheet" href="/css/style.css">
   <link rel="icon" href="/img/webnotelogo.png">
-
 </head>
-<body class="about-body">
+<body class="authentication-page">
   <header>
     <nav>
       <div class="container">
@@ -35,34 +34,35 @@
     </nav>
   </header>
 
-  <main class="about-container">
-    <section>
-      <h1>About WebNote</h1>
-      <img src="/img/webnotelogo.png" alt="WebNote logo" width="15%">
-      <p class="about-box">WebNote is a site dedicated to creating, edit, and organize notes into
-         categories or folders. WebNote provides a free, fully functional,
-         ad-free, responsive, and intuitive interface. Where most alternatives
-         are locked behind a subscription paywall and/or are riddled with ads,
-         WebNote provides a clutterless alternative. Most of the “free” apps
-         similar to the service we provide also have very limited use built-in
-         to them in order to persuade users to purchase their subscription based
-         service.</p>
-      <p class="about-box">
-        WebNote enables users to be able to write online notes, edit, save, sort,
-        customize, and store those notes in various folders for organization. Notes 
-        can then be viewed and edited at any time or place. Your notes will be tamper
-        proof and only available to you, ad free, anytime!
-      </p>
-    </section>
-  </main>
+  <main class="authentication-container">
+    <h1 class="app-title">WebNote</h1>
 
+    <div class="authentication-card">
+      <h2>Log In</h2>
+      <form>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" name="email">
+        </div>
+
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" name="password">
+        </div>
+        <button type="submit" class="register-btn">Log In</button>
+      </form>
+      
+      <p class="authentication-footer">
+        Don't have an account?
+        <a href="/users/register">Register</a>
+      </p>
+    </div>
+  </main>
 
   <footer>
     <div class="container">
       <p>&copy; 2025 CS346 Project. All rights reserved.</p>
     </div>
   </footer>
-
-  <script src="/js/main.js"></script>
 </body>
 </html>

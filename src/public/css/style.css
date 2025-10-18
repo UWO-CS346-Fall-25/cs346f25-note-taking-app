@@ -36,10 +36,19 @@
 }
 
 body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   font-family: var(--font-family);
   line-height: 1.6;
   color: var(--dark-color);
-  background-color: #fff;
+  background-color: #f9f1fb;
+}
+
+html, body {
+  height:100%;
+  margin: 0;
+  padding: 0;
 }
 
 a {
@@ -62,9 +71,8 @@ a:hover {
 .about-container {
   max-width: 1200px;
   margin: 4rem auto;
-  padding: 0 20px;
+  padding: 0px 0px 60px 0px;
   display: flex;
-  flex: 2;
   flex-direction: column;
   text-align: center;
   align-items: center;
@@ -73,9 +81,26 @@ a:hover {
 }
 
 .about-box {
-  flex: 1;
   text-align: justify;
+  padding: 0px 150px 20px 150px;
 }
+
+.about-body {
+  font-family: var(--font-family);
+  line-height: 1.6;
+  color: var(--dark-color);
+  /* background: linear-gradient(#ffffff 50%,#dfdfdf 100%); */
+  background: linear-gradient(
+    to bottom,
+   #f3f3f3 0%,
+   #f8f8f8 40%,
+   #ffffff 50%,
+   #f8f8f8 60%,
+   #e9e9e9 100%
+  );
+
+}
+
 
 /* Header & Navigation */
 header {
@@ -83,6 +108,7 @@ header {
   color: #333;
   border-bottom: 1px solid #e5e5e5;
   box-shadow: none;
+  padding: 25px 0px; 
 }
 
 nav .container {
@@ -92,7 +118,8 @@ nav .container {
 }
 
 .logo {
-  color: var(--primary-color);
+  /* color: var(--primary-color); */
+  color: black;
 }
 
 .logo:hover {
@@ -129,7 +156,11 @@ nav .container {
 
 /* Main Content */
 main {
-  min-height: calc(100vh - 200px);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 2rem 0;
 }
 
@@ -379,6 +410,9 @@ footer {
   border-top: 1px solid #e5e5e5;
   padding: 1rem 0;
   margin-top: auto;
+  width: 100%;
+  position: relative;
+  bottom: 0;
 }
 
 /* Responsive Design */
@@ -399,9 +433,6 @@ footer {
 
 .authentication-page {
   background-color: #f9f1fb;
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
 }
 
 .authentication-container {
@@ -495,3 +526,49 @@ footer {
 .authentication-footer a:hover {
   text-decoration: underline;
 }
+
+/* LOG IN PAGE */
+
+
+.login-page .authentication-card h2 {
+  color: var(--dark-color);
+}
+
+.login-page .register-btn {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+.login-page .register-btn:hover {
+  background-color: #0056b3;
+}
+
+/* HOME PAGE */
+.home-page {
+  color: var(---dark-color);
+}
+
+.home-page header {
+  background-color: #ffffff;
+  color: #333;
+  border-bottom: 1px solid #e5e5e5;
+  box-shadow: none;
+}
+
+.home-page .nav-links a {
+  color: #333;
+}
+
+.home-page .logo {
+  /* color: var(--primary-color); */
+  color: black;
+}
+
+.home-page footer {
+  background-color: #ffffff;
+  color: #666;
+  font: 0.9rem;
+  border-top: 1px solid #e5e5e5;
+  padding: 1rem 0;
+}
+

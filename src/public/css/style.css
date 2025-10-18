@@ -59,6 +59,24 @@ a:hover {
   padding: 0 20px;
 }
 
+.about-container {
+  max-width: 1200px;
+  margin: 4rem auto;
+  padding: 0 20px;
+  display: flex;
+  flex: 2;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+
+.about-box {
+  flex: 1;
+  text-align: justify;
+}
+
 /* Header & Navigation */
 header {
   background-color: var(--dark-color);
@@ -383,8 +401,6 @@ footer {
 .authentication-page {
   background-color: #f9f1fb;
   display: flex;
-  align-items: center;
-  justify-content: center;
   min-height: 100vh;
   flex-direction: column;
 }
@@ -393,6 +409,7 @@ footer {
   text-align: center;
   width: 100%;
   max-width: 420px;
+  margin: 5rem auto 3rem;
   padding: 2rem;
 }
 
@@ -400,7 +417,22 @@ footer {
   font-size: 2rem;
   font-weight: 700;
   color: var(--dark-color);
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.authentication-card h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.4rem;
+  color: var(--dark-color);
+}
+
+.authentication-card .form-group {
+  margin-bottom: 1.2rem;
+}
+
+.authentication-card label {
+  display: block;
 }
 
 .authentication-card {

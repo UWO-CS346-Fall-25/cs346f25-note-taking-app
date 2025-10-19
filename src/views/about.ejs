@@ -1,25 +1,20 @@
-<!-- when adding a page route, go to app.js and add app.get() method
-     then change the html to add the href link in the .ejs file -->
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- <title><%= title %> - CS346 Project</title> -->
-  <title>WebNote</title>
+  <title>About WebNote</title>
   <link rel="stylesheet" href="/css/style.css">
   <link rel="icon" href="/img/webnotelogo.png">
+
 </head>
-<body class="home-page">
+<body class="about-body">
   <header>
     <nav>
       <div class="container">
         <a href="/" class="logo">
           <img src="/img/webnotelogo.png" alt="WebNote logo" width="15%">
         </a>
-        <!-- WebNote add the title here-->
         <ul class="nav-links">
           <li><a href="/">Home</a></li>
           <li><a href="/users/about">About</a></li>
@@ -40,38 +35,27 @@
     </nav>
   </header>
 
-  <main class="container">
-    <section class="hero">
-      <div class="hero-text">
-        <h1>The online note-taking app for your ideas!</h1>
-        <p>Capture and organize your notes in this web application.</p>
-        <!-- this link will go to register page -->
-        <a href="/users/register">Get Started!</a>
-      </div>
-      <!-- image goes here -->
-      <div class="hero-image">
-        <div class="note-preview">
-          <div class="sidebar">
-            <h4>Notes</h4>
-            <ul>
-              <li class="active">To Do List</li>
-              <li>Project Ideas</li>
-              <li>Reminders</li>
-            </ul>
-          </div>
-          <div class="note-content">
-            <h3>To-Do List</h3>
-            <ul>
-              <li>Finish CS346 Project</li>
-              <li>Write Documentation</li>
-              <li>Push to GitHub</li>
-            </ul>
-            <p>Organize your thoughts.</p>
-          </div>
-        </div>
-      </div>
+  <main class="about-container">
+    <section>
+      <h1>About WebNote</h1>
+      <img src="/img/webnotelogo.png" alt="WebNote logo" width="15%">
+      <p class="about-box">WebNote is a site dedicated to creating, edit, and organize notes into
+         categories or folders. WebNote provides a free, fully functional,
+         ad-free, responsive, and intuitive interface. Where most alternatives
+         are locked behind a subscription paywall and/or are riddled with ads,
+         WebNote provides a clutterless alternative. Most of the “free” apps
+         similar to the service we provide also have very limited use built-in
+         to them in order to persuade users to purchase their subscription based
+         service.</p>
+      <p class="about-box">
+        WebNote enables users to be able to write online notes, edit, save, sort,
+        customize, and store those notes in various folders for organization. Notes 
+        can then be viewed and edited at any time or place. Your notes will be tamper
+        proof and only available to you, ad free, anytime!
+      </p>
     </section>
   </main>
+
 
   <footer>
     <div class="container">

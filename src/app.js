@@ -81,7 +81,31 @@ app.get('/', csrfProtection, (req, res) => {
   });
 });
 
-// 404 handler
+//Register page
+app.get('/users/register', csrfProtection, (req, res) => {
+  res.render('register', {
+    title: 'Register',
+    csrfToken: req.csrfToken(),
+  });
+});
+
+//About page
+app.get('/users/about', csrfProtection, (req, res) => {
+  res.render('about', {
+    title: 'About',
+    csrfToken: req.csrfToken(),
+  });
+});
+
+// Log in page
+app.get('/users/login', csrfProtection, (req, res) => {
+  res.render('login', {
+    title: 'Login',
+    csrfToken: req.csrfToken(),
+  });
+});
+
+// 404 handler error page
 app.use((req, res) => {
   res.status(404).render('error', {
     title: 'Page Not Found',

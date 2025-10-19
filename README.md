@@ -138,3 +138,14 @@ This is a teaching template. Feel free to:
 ## License
 
 ISC
+
+## WEEK 7 UPDATES
+
+- about.ejs - ![About Page](Screenshot_2025-10-18_152805.png)
+   - This page is just simple information about WebNote as a whole.
+- index.ejs - ![Home Page](Screenshot_2025-10-18_152712.png)
+   - This page serves as the homepage for the website.
+- login.ejs - ![Log In Page](Screenshot_2025-10-18_152851.png)
+   - A simple login page with a submittable form.
+- register.ejs - ![Register Page](Screenshot_2025-10-18_152910.png)
+   - The register page consists of another submittable form.

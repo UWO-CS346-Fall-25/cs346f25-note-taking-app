@@ -45,8 +45,9 @@ body {
   background-color: #f9f1fb;
 }
 
-html, body {
-  height:100%;
+html,
+body {
+  height: 100%;
   margin: 0;
   padding: 0;
 }
@@ -57,7 +58,7 @@ a {
 }
 
 a:hover {
-  cursor:pointer;
+  cursor: pointer;
   text-decoration: underline;
 }
 
@@ -92,15 +93,13 @@ a:hover {
   /* background: linear-gradient(#ffffff 50%,#dfdfdf 100%); */
   background: linear-gradient(
     to bottom,
-   #f3f3f3 0%,
-   #f8f8f8 40%,
-   #ffffff 50%,
-   #f8f8f8 60%,
-   #e9e9e9 100%
+    #f3f3f3 0%,
+    #f8f8f8 40%,
+    #ffffff 50%,
+    #f8f8f8 60%,
+    #e9e9e9 100%
   );
-
 }
-
 
 /* Header & Navigation */
 header {
@@ -108,7 +107,7 @@ header {
   color: #333;
   border-bottom: 1px solid #e5e5e5;
   box-shadow: none;
-  padding: 25px 0px; 
+  padding: 25px 0px;
 }
 
 nav .container {
@@ -203,7 +202,7 @@ main {
 }
 
 .hero-text a:hover {
-  background-color:#0056b3;
+  background-color: #0056b3;
 }
 
 .hero-image {
@@ -260,7 +259,7 @@ main {
 
 .note-content h3 {
   margin-bottom: 0.5rem;
-  color: var(--dark-color)
+  color: var(--dark-color);
 }
 
 .note-content ul {
@@ -529,7 +528,6 @@ footer {
 
 /* LOG IN PAGE */
 
-
 .login-page .authentication-card h2 {
   color: var(--dark-color);
 }
@@ -571,4 +569,3 @@ footer {
   border-top: 1px solid #e5e5e5;
   padding: 1rem 0;
 }
-

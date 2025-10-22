@@ -1,13 +1,13 @@
-const pool = require('./db');
+const db = require('./db');
 
 const Note = {
   async getAll() {
-    const {rows} = await pool.query('SELECT * FROM notes ORDER BY id DESC');
-    return rows;
+    const result = await db.query('SELECT * FROM notes ORDER BY id DESC');
+    return result.rows;
   },
 
   async add(title,content) {
-    await pool.query('INSERT INTO notes (title,content) VALUES ($1, $2)', [title,content]);
+    await db.query('INSERT INTO notes (title,content) VALUES ($1, $2)', [title,content]);
   }
 };
 

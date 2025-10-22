@@ -69,6 +69,8 @@ app.use((req, res, next) => {
 
 // Routes
 // Import and use your route files here
+const notesRouter = require('./routes/notes');
+app.use('/notes', notesRouter);
 // Example:
 // const indexRouter = require('./routes/index');
 // app.use('/', indexRouter);
@@ -114,9 +116,6 @@ app.use((req, res) => {
   });
 });
 
-// Note Page
-const noteRoutes = require('./routes/notes');
-app.use('/notes', noteRoutes);
 
 // Error handler
 // eslint-disable-next-line no-unused-vars
@@ -138,5 +137,7 @@ app.use((err, req, res, _next) => {
     error: res.locals.error,
   });
 });
+
+
 
 module.exports = app;

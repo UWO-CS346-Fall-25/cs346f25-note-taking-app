@@ -1,11 +1,15 @@
 const Note = require('../models/Note');
 
 
-exports.getNotes = async (req,res) => {
+exports.getNotes = async (req, res) => {
   try {
-    const notes = Note.getAll();
-    res.render('notes', {notes});
-  } catch(err) {
+    const notes = await Note.getAll();
+    res.render('notes', {
+      title: 'Notes',
+      notes,
+      csrfToken: req.csrfToken(), // ✅ pass token here
+    });
+  } catch (err) {
     console.error(err);
     res.status(500).send('Error loading notes');
   }

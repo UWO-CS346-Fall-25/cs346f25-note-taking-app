@@ -114,6 +114,10 @@ app.use((req, res) => {
   });
 });
 
+// Note Page
+const noteRoutes = require('./routes/notes');
+app.use('/notes', noteRoutes);
+
 // Error handler
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, _next) => {

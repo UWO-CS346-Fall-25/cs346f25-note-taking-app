@@ -107,6 +107,14 @@ app.get('/users/login', csrfProtection, (req, res) => {
   });
 });
 
+//Notes page
+app.get('/users/notes', csrfProtection, (req, res) => {
+  res.render('notes', {
+    title: 'Notes',
+    csrfToken: req.csrfToken(),
+  });
+});
+
 // 404 handler error page
 app.use((req, res) => {
   res.status(404).render('error', {

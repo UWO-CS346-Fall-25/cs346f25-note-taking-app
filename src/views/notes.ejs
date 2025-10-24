@@ -41,7 +41,7 @@
         <a href="/" class="btn-secondary">Back</a>
       </div>
 
-      <form class="note-editor-form" action="/notes/add" method="POST">
+      <form class="note-editor-form" action="/users/notes" method="POST">
         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
         <div class="form-group">
           <label for="title">Title</label>

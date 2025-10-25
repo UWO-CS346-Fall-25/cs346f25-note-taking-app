@@ -149,3 +149,14 @@ ISC
    - A simple login page with a submittable form.
 - register.ejs - ![Register Page](Screenshot_2025-10-18_152910.png)
    - The register page consists of another submittable form.
+
+## WEEK 8 UPDATES
+
+- Database is hooked up, everything seems to be
+  working fine as well.
+- New "Notes Page" screen which will now 
+  consists of a form that the user is able to 
+  submit. 
+- JavaScript implementation: minimal interactivity
+  so far, more will be coming soon however.
+- Incremented branch name.

@@ -69,6 +69,8 @@ app.use((req, res, next) => {
 
 // Routes
 // Import and use your route files here
+const notesRouter = require('./routes/notes');
+app.use('/notes', notesRouter);
 // Example:
 // const indexRouter = require('./routes/index');
 // app.use('/', indexRouter);
@@ -105,6 +107,14 @@ app.get('/users/login', csrfProtection, (req, res) => {
   });
 });
 
+//Notes page
+app.get('/users/notes', csrfProtection, (req, res) => {
+  res.render('notes', {
+    title: 'Notes',
+    csrfToken: req.csrfToken(),
+  });
+});
+
 // 404 handler error page
 app.use((req, res) => {
   res.status(404).render('error', {
@@ -113,6 +123,7 @@ app.use((req, res) => {
     error: { status: 404 },
   });
 });
+
 
 // Error handler
 // eslint-disable-next-line no-unused-vars
@@ -134,5 +145,7 @@ app.use((err, req, res, _next) => {
     error: res.locals.error,
   });
 });
+
+
 
 module.exports = app;

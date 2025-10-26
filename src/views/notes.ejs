@@ -1,26 +1,19 @@
-
-<!-- when adding a page route, go to app.js and add app.get() method
-     then change the html to add the href link in the .ejs file -->
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- <title><%= title %> - CS346 Project</title> -->
   <title>WebNote</title>
   <link rel="stylesheet" href="/css/style.css">
   <link rel="icon" href="/img/webnotelogo.png">
 </head>
-<body class="home-page">
+<body>
   <header>
     <nav>
       <div class="container">
         <a href="/" class="logo">
           <img src="/img/webnotelogo.png" alt="WebNote logo" width="15%">
         </a>
-        <!-- WebNote add the title here-->
         <ul class="nav-links">
           <li><a href="/">Home</a></li>
           <li><a href="/users/about">About</a></li>
@@ -35,44 +28,37 @@
           <% } else { %>
             <li><a href="/users/login">Login</a></li>
             <li><a href="/users/register">Register</a></li>
-            <li><a href="/users/notes">Notes</a></li>
           <% } %>
         </ul>
       </div>
     </nav>
   </header>
 
-  <main class="container">
-    <section class="hero">
-      <div class="hero-text">
-        <h1>The online note-taking app for your ideas!</h1>
-        <p>Capture and organize your notes in this web application.</p>
-        <!-- this link will go to register page -->
-        <a href="/users/register">Get Started!</a>
+  <main class="notes-page">
+    <div class="note-editor-container">
+      <div class="note-editor-header">
+        <h1>New Note</h1>
+        <a href="/" class="btn-secondary">Back</a>
       </div>
-      <!-- image goes here -->
-      <div class="hero-image">
-        <div class="note-preview">
-          <div class="sidebar">
-            <h4>Notes</h4>
-            <ul>
-              <li class="active">To Do List</li>
-              <li>Project Ideas</li>
-              <li>Reminders</li>
-            </ul>
-          </div>
-          <div class="note-content">
-            <h3>To-Do List</h3>
-            <ul>
-              <li>Finish CS346 Project</li>
-              <li>Write Documentation</li>
-              <li>Push to GitHub</li>
-            </ul>
-            <p>Organize your thoughts.</p>
-          </div>
+
+      <form class="note-editor-form" action="/users/notes" method="POST">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input type="text" id="title" name="title" placeholder="Enter note title..." required>
         </div>
-      </div>
-    </section>
+
+        <div class="form-group">
+          <label for="content">Content</label>
+          <textarea id="content" name="content" placeholder="Starting writing your note..."required></textarea>
+        </div>
+
+        <div class="note-editor-actions">
+          <button type="submit" class="btn">Save Note</button>
+        </div>
+      </form>
+
+    </div>
   </main>
 
   <footer>
@@ -82,5 +68,6 @@
   </footer>
 
   <script src="/js/main.js"></script>
+
 </body>
 </html>

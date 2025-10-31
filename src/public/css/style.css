@@ -11,6 +11,9 @@
  * 6. Utilities
  */
 
+/* Imported Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+
 /* CSS Variables */
 :root {
   --primary-color: #007bff; /* background for welcome message */
@@ -160,7 +163,7 @@ main {
 /* Hero Section */
 .hero {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 3rem;
@@ -169,7 +172,7 @@ main {
 }
 
 .hero-text {
-  flex: 1 1 45%;
+  flex: 1 1 50%;
 }
 
 .hero h1 {
@@ -200,24 +203,32 @@ main {
 }
 
 .hero-image {
-  flex: 1 1 45%;
+  flex: 1 1 40%;
   display: flex;
   justify-content: center;
+  order: 2;
+}
+
+.hero-image img {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 .note-preview {
   display: flex;
-  width: 100%;
+  flex-direction: column;
   max-width: 460px;
   border-radius: 12px;
   background: #fff;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   overflow: hidden;
+  margin-top: 2rem;
 }
 
 .sidebar {
   background-color: #f3f3f3;
-  width: 35%;
+  width: 100%;
   padding: 1rem;
   border-right: 1px;
 }
@@ -421,6 +432,15 @@ footer {
 
   .feature-grid {
     grid-template-columns: 1fr;
+  }
+
+  .hero {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-image {
+    order: 1;
   }
 }
 

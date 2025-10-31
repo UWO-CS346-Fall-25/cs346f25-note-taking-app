@@ -168,6 +168,8 @@ ISC
 - Added a check box onto the register page
 - All input fields are now required with the built
   in error messages.
+- Imported a Google Font
+- Added an unDraw illustration
 - ![Register Page](src/public/img/register.png)
 - ![Register Page Email Error](src/public/img/email-error.png)
 - ![Register Page Password Error](src/public/img/password-error.png)

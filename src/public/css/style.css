@@ -668,3 +668,64 @@ footer {
 .btn-secondary:hover {
   background-color: #e0e0e0;
 }
+
+.accept-terms {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;
+  font-size: 0.95rem;
+  color: #333;
+  text-align: left;
+}
+
+.accept-terms input[type="checkbox"] {
+  transform: scale(1.2);
+  accent-color: #007bff;
+  cursor: pointer;
+}
+
+.accept-terms label {
+  cursor: pointer;
+  transition: color 0.2s ease;
+  display: inline-block !important;
+  margin: 0;
+}
+
+.accept-terms label:hover {
+  color: #007bff;
+}
+
+.notes-page {
+  background-color: #f9f1fb;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* prevent overlap with navbar */
+  padding: 6rem 1rem 4rem; /* space from header & footer */
+  min-height: calc(100vh - 160px); /* account for header+footer height */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.note-editor-container {
+  background-color: #fff;
+  width: 95%;
+  max-width: 1000px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  padding: 2.5rem 3rem;
+  margin: 0 auto;
+}
+
+.note-editor-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.note-editor-actions .btn {
+  padding: 0.8rem 1.5rem;
+}

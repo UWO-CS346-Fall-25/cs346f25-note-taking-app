@@ -715,3 +715,242 @@ footer {
 .accept-terms label:hover {
   color: #007bff;
 }
+
+.authentication-page {
+  background-color: #f9f1fb;
+}
+
+.authentication-container {
+  text-align: center;
+  width: 100%;
+  max-width: 420px;
+  margin: 5rem auto 3rem;
+  padding: 2rem;
+}
+
+.app-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--dark-color);
+  margin-bottom: 1.5rem;
+}
+
+.authentication-card h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.4rem;
+  color: var(--dark-color);
+}
+
+.authentication-card .form-group {
+  margin-bottom: 1.2rem;
+}
+
+.authentication-card label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: #333;
+}
+
+.authentication-card input {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: var(--font-family);
+}
+
+.authentication-card input:focus {
+  border-color: var(--primary-color);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+}
+
+.authentication-card {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  text-align: left;
+  margin-top: 1rem;
+}
+
+.register-btn {
+  display: block;
+  width: 100%;
+  padding: 0.8rem;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+  margin-top: 0.5rem;
+}
+
+.register-btn:hover {
+  background-color: #0056b3;
+}
+
+.authentication-footer {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+  color: #666;
+}
+
+.authentication-footer a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.authentication-footer a:hover {
+  text-decoration: underline;
+}
+
+/* LOG IN PAGE */
+
+.login-page .authentication-card h2 {
+  color: var(--dark-color);
+}
+
+.login-page .register-btn {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+.login-page .register-btn:hover {
+  background-color: #0056b3;
+}
+
+/* HOME PAGE */
+.home-page {
+  color: var(---dark-color);
+}
+
+.home-page header {
+  background-color: #ffffff;
+  color: #333;
+  border-bottom: 1px solid #e5e5e5;
+  box-shadow: none;
+}
+
+.home-page .nav-links a {
+  color: #333;
+}
+
+.home-page .logo {
+  /* color: var(--primary-color); */
+  color: black;
+}
+
+.home-page footer {
+  background-color: #ffffff;
+  color: #666;
+  font: 0.9rem;
+  border-top: 1px solid #e5e5e5;
+  padding: 1rem 0;
+}
+
+.notes-page {
+  background-color: #f9f1fb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 1rem;
+  min-height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 2rem;
+}
+
+.note-editor-container {
+  background-color: #fff;
+  width: 95%;
+  max-width: 1000px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  padding: 2.5rem 3rem;
+  margin: auto;
+}
+
+.note-editor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.note-editor-header h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--dark-color);
+}
+
+.note-editor-header .btn {
+  font-size: 0.95rem;
+  padding: 0.6rem 1.2rem;
+}
+
+.note-editor-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.note-editor-form label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  display: block;
+  color: #333;
+}
+
+.note-editor-form input[type="text"] {
+  width: 100%;
+  padding: 0.7rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.note-editor-form textarea {
+  width: 100%;
+  height: 400px;
+  padding: 1rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  resize: vertical;
+}
+
+.note-editor-form textarea:focus,
+.note-editor-form input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
+  outline: none;
+}
+
+.note-editor-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.btn-secondary {
+  background-color: #f3f3f3;
+  color: #333;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  transition: background 0.2s ease-in-out;
+}
+
+.btn-secondary:hover {
+  background-color: #e0e0e0;
+}

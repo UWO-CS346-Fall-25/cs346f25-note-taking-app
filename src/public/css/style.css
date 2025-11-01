@@ -11,6 +11,9 @@
  * 6. Utilities
  */
 
+/* Imported Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+
 /* CSS Variables */
 :root {
   --primary-color: #007bff; /* background for welcome message */
@@ -21,6 +24,8 @@
   --info-color: #17a2b8;
   --light-color: #f8f9fa;
   --dark-color: #343a40;
+  --off-white: #f3f3f3;  /*the main background color */
+  --pure-white: #ffffff; /* the bright white used in header and footer */
   --font-family:
     -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
     Arial, sans-serif;
@@ -90,20 +95,12 @@ a:hover {
   font-family: var(--font-family);
   line-height: 1.6;
   color: var(--dark-color);
-  /* background: linear-gradient(#ffffff 50%,#dfdfdf 100%); */
-  background: linear-gradient(
-    to bottom,
-    #f3f3f3 0%,
-    #f8f8f8 40%,
-    #ffffff 50%,
-    #f8f8f8 60%,
-    #e9e9e9 100%
-  );
+  background-color: var(--off-white);
 }
 
 /* Header & Navigation */
 header {
-  background-color: #ffffff;
+  background-color: var(--pure-white);
   color: #333;
   border-bottom: 1px solid #e5e5e5;
   box-shadow: none;
@@ -166,7 +163,7 @@ main {
 /* Hero Section */
 .hero {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 3rem;
@@ -175,7 +172,7 @@ main {
 }
 
 .hero-text {
-  flex: 1 1 45%;
+  flex: 1 1 50%;
 }
 
 .hero h1 {
@@ -206,24 +203,32 @@ main {
 }
 
 .hero-image {
-  flex: 1 1 45%;
+  flex: 1 1 40%;
   display: flex;
   justify-content: center;
+  order: 2;
+}
+
+.hero-image img {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 .note-preview {
   display: flex;
-  width: 100%;
+  flex-direction: column;
   max-width: 460px;
   border-radius: 12px;
   background: #fff;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   overflow: hidden;
+  margin-top: 2rem;
 }
 
 .sidebar {
   background-color: #f3f3f3;
-  width: 35%;
+  width: 100%;
   padding: 1rem;
   border-right: 1px;
 }
@@ -403,7 +408,7 @@ main {
 
 /* Footer */
 footer {
-  background-color: #ffffff;
+  background-color: var(--pure-white);
   color: #666;
   font-size: 0.9rem;
   border-top: 1px solid #e5e5e5;
@@ -428,6 +433,287 @@ footer {
   .feature-grid {
     grid-template-columns: 1fr;
   }
+
+  .hero {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-image {
+    order: 1;
+  }
+}
+
+.authentication-page {
+  background-color: #f9f1fb;
+}
+
+.authentication-container {
+  text-align: center;
+  width: 100%;
+  max-width: 420px;
+  margin: 5rem auto 3rem;
+  padding: 2rem;
+}
+
+.app-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--dark-color);
+  margin-bottom: 1.5rem;
+}
+
+.authentication-card h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.4rem;
+  color: var(--dark-color);
+}
+
+.authentication-card .form-group {
+  margin-bottom: 1.2rem;
+}
+
+.authentication-card label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: #333;
+}
+
+.authentication-card input {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: var(--font-family);
+}
+
+.authentication-card input:focus {
+  border-color: var(--primary-color);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+}
+
+.authentication-card {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  text-align: left;
+  margin-top: 1rem;
+}
+
+.register-btn {
+  display: block;
+  width: 100%;
+  padding: 0.8rem;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+  margin-top: 0.5rem;
+}
+
+.register-btn:hover {
+  background-color: #0056b3;
+}
+
+.authentication-footer {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+  color: #666;
+}
+
+.authentication-footer a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.authentication-footer a:hover {
+  text-decoration: underline;
+}
+
+/* LOG IN PAGE */
+
+.login-page .authentication-card h2 {
+  color: var(--dark-color);
+}
+
+.login-page .register-btn {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+.login-page .register-btn:hover {
+  background-color: #0056b3;
+}
+
+/* HOME PAGE */
+.home-page {
+  color: var(---dark-color);
+}
+
+.home-page header {
+  background-color: var(--pure-white);
+  color: #333;
+  border-bottom: 1px solid #e5e5e5;
+  box-shadow: none;
+}
+
+.home-page .nav-links a {
+  color: #333;
+}
+
+.home-page .logo {
+  /* color: var(--primary-color); */
+  color: black;
+}
+
+.home-page footer {
+  background-color: var(--pure-white);
+  color: #666;
+  font: 0.9rem;
+  border-top: 1px solid #e5e5e5;
+  padding: 1rem 0;
+}
+
+.notes-page {
+  background-color: #f9f1fb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 1rem;
+  min-height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 2rem;
+}
+
+.note-editor-container {
+  background-color: #fff;
+  width: 95%;
+  max-width: 1000px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  padding: 2.5rem 3rem;
+  margin: auto;
+}
+
+.note-editor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.note-editor-header h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--dark-color);
+}
+
+.note-editor-header .btn {
+  font-size: 0.95rem;
+  padding: 0.6rem 1.2rem;
+}
+
+.note-editor-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.note-editor-form label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  display: block;
+  color: #333;
+}
+
+.note-editor-form input[type="text"] {
+  width: 100%;
+  padding: 0.7rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.note-editor-form textarea {
+  width: 100%;
+  height: 400px;
+  padding: 1rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  resize: vertical;
+}
+
+.note-editor-form textarea:focus,
+.note-editor-form input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
+  outline: none;
+}
+
+.note-editor-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.btn-secondary {
+  background-color: var(--off-white);
+  color: #333;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  transition: background 0.2s ease-in-out;
+}
+
+.btn-secondary:hover {
+  background-color: #e0e0e0;
+}
+
+/* ACCEPT TERMS */
+.accept-terms {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;
+  font-size: 0.95rem;
+  color: #333;
+  width: fit-content;
+}
+
+.accept-terms input[type="checkbox"] {
+  flex-shrink: 0;
+  transform: scale(1.2);
+  accent-color: #007bff;
+  cursor: pointer;
+}
+
+.accept-terms label {
+  cursor: pointer;
+  transition: color 0.2s ease;
+  display: inline-block;
+  margin: 0;
+  line-height: 1;
+}
+
+.accept-terms label:hover {
+  color: #007bff;
 }
 
 .authentication-page {

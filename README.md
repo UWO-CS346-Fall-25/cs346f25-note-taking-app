@@ -154,9 +154,24 @@ ISC
 
 - Database is hooked up, everything seems to be
   working fine as well.
-- New "Notes Page" screen which will now 
-  consists of a form that the user is able to 
-  submit. 
+- New "Notes Page" screen which will now
+  consists of a form that the user is able to
+  submit.
 - JavaScript implementation: minimal interactivity
   so far, more will be coming soon however.
 - Incremented branch name.
+
+## WEEK 9 UPDATES
+
+- There are now Hover and Focus states. Buttons and input
+  fields have smooth hover/focus transitions.
+- Added a check box onto the register page
+- All input fields are now required with the built
+  in error messages.
+- Imported a Google Font
+- Added an unDraw illustration
+- ![Register Page](src/public/img/register.png)
+- ![Register Page Email Error](src/public/img/email-error.png)
+- ![Register Page Password Error](src/public/img/password-error.png)
+- ![Register Page Accept Terms Error](src/public/img/terms-error.png)
+- ![Register Page Username Error](src/public/img/username-error.png)

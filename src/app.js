@@ -116,6 +116,15 @@ app.get('/users/notes', csrfProtection, (req, res) => {
   });
 });
 
+//My Notes page
+app.get('/users/notes-list', csrfProtection, (req, res) => {
+  res.render('notes-list', {
+    title: 'My Notes',
+    csrfToken: req.csrfToken(),
+    notes: [],
+  });
+});
+
 // 404 handler error page
 app.use((req, res) => {
   res.status(404).render('error', {

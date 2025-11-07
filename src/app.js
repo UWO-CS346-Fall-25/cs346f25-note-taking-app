@@ -14,6 +14,7 @@ const path = require('path');
 const helmet = require('helmet');
 const session = require('express-session');
 const csrf = require('csurf');
+const supabase = require('./config/supabase');
 
 // Initialize Express app
 const app = express();

@@ -7,3 +7,26 @@ const supabase = createClient(
 );
 
 module.exports = supabase;
+
+
+// Database Schema:
+
+// notes
+// ----------
+// id 
+// user_id
+// title
+// content
+// created_at
+// updated_at
+// user_uuid
+
+
+// users
+// -----------
+// id
+// username
+// email
+// password
+// created_at
+// updated_at

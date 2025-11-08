@@ -13,6 +13,9 @@ const app = require('./app');
 // Server configuration
 const PORT = process.env.PORT || 3000;
 
+const notesRouter = require('./routes/notes');
+app.use('/notes', notesRouter);
+
 // Start server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

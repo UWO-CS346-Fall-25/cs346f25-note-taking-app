@@ -72,6 +72,9 @@ app.use((req, res, next) => {
 // Import and use your route files here
 const notesRouter = require('./routes/notes');
 app.use('/notes', notesRouter);
+
+app.use('/notes', require('./routes/notes'));
+
 // Example:
 // const indexRouter = require('./routes/index');
 // app.use('/', indexRouter);

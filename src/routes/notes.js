@@ -6,26 +6,26 @@ const supabase = require('../config/supabase');
 router.post('/', async (req, res) => {
   const {title, content} = req.body;
 
-  if(!title) {
-    return res.render('notes', {
-      title: 'Notes',
-      content: 'Title is required.',
-      csrfToken: req.csrfToken(),
-    });
-  }
+  // if(!title) {
+  //   return res.render('notes', {
+  //     title: 'Notes',
+  //     content: 'Title is required.',
+  //     csrfToken: req.csrfToken(),
+  //   });
+  // }
 
   const { error } = await supabase
     .from('notes')
     .insert([{title,content}]);
 
-    if(error) {
-      console.error(error);
-      return res.render('notes', {
-        title: 'Notes',
-        content: 'Failed to save note.',
-        csrfToken: req.csrfToken(),
-      });
-    }
+    // if(error) {
+    //   console.error(error);
+    //   return res.render('notes', {
+    //     title: 'Notes',
+    //     content: 'Failed to save note.',
+    //     csrfToken: req.csrfToken(),
+    //   });
+    // }
 
     res.redirect('/notes/list')
 });

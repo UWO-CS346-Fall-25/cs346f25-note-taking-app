@@ -23,9 +23,15 @@ router.post('/', async (req, res) => {
     //   return res.render('notes', {
     //     title: 'Notes',
     //     content: 'Failed to save note.',
-    //     csrfToken: req.csrfToken(),
+    //     // csrfToken: req.csrfToken(),
     //   });
     // }
+    if(error){
+      console.error('Insert failed:', error);
+      return res.status(500).send('Failed to save note.');
+    }else{
+      console.log('Insert succeeded:', content);
+    }
 
     res.redirect('/notes/list')
 });

@@ -175,3 +175,9 @@ ISC
 - ![Register Page Password Error](src/public/img/password-error.png)
 - ![Register Page Accept Terms Error](src/public/img/terms-error.png)
 - ![Register Page Username Error](src/public/img/username-error.png)
+
+## WEEK 10 UPDATES 
+
+- The database is now able to be interacted with through the "Notes List" and "Notes" webpages. The Notes List page fetches the available notes from the database and displays them, and the Notes page allows users to insert a note with a title into the database when they click the save button on that page. 
+- As for the RLS, we disabled it for now in Supabase, as well as commented out all code concerning the CSRF tokens.
+- We will reintroduce the RLS in Supabase as well as restore the CSRF token system in the future once we set up user authentication. We have a "users" table in Supabase with a row for "id" that we will undoubtedly use for isolating user data once user authorization is added.

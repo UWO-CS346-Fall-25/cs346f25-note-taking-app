@@ -14,6 +14,7 @@ const path = require('path');
 const helmet = require('helmet');
 const session = require('express-session');
 const csrf = require('csurf');
+const supabase = require('./config/supabase');
 
 // Initialize Express app
 const app = express();
@@ -71,6 +72,9 @@ app.use((req, res, next) => {
 // Import and use your route files here
 const notesRouter = require('./routes/notes');
 app.use('/notes', notesRouter);
+
+app.use('/notes', require('./routes/notes'));
+
 // Example:
 // const indexRouter = require('./routes/index');
 // app.use('/', indexRouter);
@@ -115,6 +119,15 @@ app.get('/users/notes', csrfProtection, (req, res) => {
   });
 });
 
+//My Notes page
+app.get('/users/notes-list', csrfProtection, (req, res) => {
+  res.render('notes-list', {
+    title: 'My Notes',
+    csrfToken: req.csrfToken(),
+    notes: [],
+  });
+});
+
 // 404 handler error page
 app.use((req, res) => {
   res.status(404).render('error', {
@@ -123,7 +136,6 @@ app.use((req, res) => {
     error: { status: 404 },
   });
 });
-
 
 // Error handler
 // eslint-disable-next-line no-unused-vars
@@ -145,7 +157,5 @@ app.use((err, req, res, _next) => {
     error: res.locals.error,
   });
 });
-
-
 
 module.exports = app;

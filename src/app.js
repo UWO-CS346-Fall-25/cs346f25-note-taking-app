@@ -137,7 +137,6 @@ app.use((req, res) => {
   });
 });
 
-
 // Error handler
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, _next) => {
@@ -158,7 +157,5 @@ app.use((err, req, res, _next) => {
     error: res.locals.error,
   });
 });
-
-
 
 module.exports = app;

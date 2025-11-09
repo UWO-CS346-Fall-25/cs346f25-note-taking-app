@@ -8,19 +8,17 @@ const supabase = createClient(
 
 module.exports = supabase;
 
-
 // Database Schema:
 
 // notes
 // ----------
-// id 
+// id
 // user_id
 // title
 // content
 // created_at
 // updated_at
 // user_uuid
-
 
 // users
 // -----------

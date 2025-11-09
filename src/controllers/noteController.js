@@ -1,6 +1,5 @@
 const Note = require('../models/Note');
 
-
 exports.getNotes = async (req, res) => {
   try {
     const notes = await Note.getAll();
@@ -15,7 +14,7 @@ exports.getNotes = async (req, res) => {
   }
 };
 
-exports.createNote = async (req,res) => {
+exports.createNote = async (req, res) => {
   try {
     const { title, content } = req.body;
     await Note.add(title, content);
@@ -24,4 +23,4 @@ exports.createNote = async (req,res) => {
     console.error(err);
     res.status(500).send('Error creating note');
   }
-}
+};

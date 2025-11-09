@@ -4,7 +4,7 @@ const supabase = require('../config/supabase');
 
 // Create Note
 router.post('/', async (req, res) => {
-  const {title, content} = req.body;
+  const { title, content } = req.body;
 
   // if(!title) {
   //   return res.render('notes', {
@@ -14,37 +14,34 @@ router.post('/', async (req, res) => {
   //   });
   // }
 
-  const { error } = await supabase
-    .from('notes')
-    .insert([{title,content}]);
+  const { error } = await supabase.from('notes').insert([{ title, content }]);
 
-    // if(error) {
-    //   console.error(error);
-    //   return res.render('notes', {
-    //     title: 'Notes',
-    //     content: 'Failed to save note.',
-    //     // csrfToken: req.csrfToken(),
-    //   });
-    // }
-    if(error){
-      console.error('Insert failed:', error);
-      return res.status(500).send('Failed to save note.');
-    }else{
-      console.log('Insert succeeded:', content);
-    }
+  // if(error) {
+  //   console.error(error);
+  //   return res.render('notes', {
+  //     title: 'Notes',
+  //     content: 'Failed to save note.',
+  //     // csrfToken: req.csrfToken(),
+  //   });
+  // }
+  if (error) {
+    console.error('Insert failed:', error);
+    return res.status(500).send('Failed to save note.');
+  } else {
+    console.log('Insert succeeded:', content);
+  }
 
-    res.redirect('/notes/list')
+  res.redirect('/notes/list');
 });
 
 // List Notes
-router.get('/list', async (req,res) => {
-
+router.get('/list', async (req, res) => {
   const { data, error } = await supabase
     .from('notes')
     .select('*')
-    .order('created_at', {ascending: false});
+    .order('created_at', { ascending: false });
 
-  if(error) {
+  if (error) {
     console.error(error);
     return res.render('error', {
       title: 'Error',
@@ -53,13 +50,11 @@ router.get('/list', async (req,res) => {
     });
   }
 
-  res.render('notes-list',{
+  res.render('notes-list', {
     title: 'Your Notes',
     notes: data,
-  })
+  });
 });
-
-
 
 // const csrf = require('csurf');
 // const noteController = require('../controllers/noteController');

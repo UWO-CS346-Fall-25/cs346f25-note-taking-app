@@ -41,6 +41,7 @@
     <div class="authentication-card">
       <h2>Register</h2>
       <form id="registerForm" action="/users/register" method="POST">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
         <div class="form-group">
           <label>Username</label>
           <input type="text" name="username" required minlength="8">

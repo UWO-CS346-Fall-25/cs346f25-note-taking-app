@@ -15,6 +15,10 @@ const helmet = require('helmet');
 const session = require('express-session');
 const csrf = require('csurf');
 const supabase = require('./config/supabase');
+const cookie = require('cookie');
+
+const usersRouter = require('./routes/users');
+const notesRouter = require('./routes/notes');
 
 // Initialize Express app
 const app = express();
@@ -64,16 +68,71 @@ const csrfProtection = csrf({ cookie: false });
 
 // Make CSRF token available to all views
 app.use((req, res, next) => {
-  res.locals.user = req.session.user || null;
+  res.locals.user = req.user || null;
   next();
 });
 
+async function requireAuth(req, res, next) {
+  try {
+    const raw = req.headers.cookie || '';
+    const cookies = cookie.parse(raw);
+
+    const access = cookies['sb-access-token'];
+    const refresh = cookies['sb-refresh-token'];
+
+    if(!access) return res.redirect('/users/login');
+
+    let { data: userData, error } = await supabase.auth.getUser(access);
+
+    if(error && refresh) {
+      const { data: sessionData, error: refreshErr } =
+        await supabase.auth.setSession({
+          access_token: access,
+          refresh_token: refresh
+        });
+
+        if(refreshErr || !sessionData?.session) {
+          return res.redirect('/users/login');
+        }
+
+        const newAccess = sessionData.session.access_token;
+        const newRefresh = sessionData.session.refresh_token;
+
+        res.cookie('sb-access-token', newAccess, {
+          httpOnly: true,
+          sameSite: 'lax',
+          secure: process.env.NODE_ENV === 'production',
+        });
+
+        res.cookie('sb-refresh-token', newRefresh, {
+          httpOnly: true,
+          sameSite: 'lax',
+          secure: process.env.NODE_ENV === 'production',
+        });
+
+        const again = await supabase.auth.getUser(newAccess);
+        userData = again.data;
+    }
+
+    if(!userData?.user) return res.redirect('/users/login');
+
+    req.user = {
+      id: userData.user.id,
+      email: userData.user.email,
+    };
+
+    next();
+  } catch(err) {
+    console.error('Auth error:', err);
+    return res.redirect('/users/login');
+  }
+}
+
 // Routes
 // Import and use your route files here
-const notesRouter = require('./routes/notes');
-app.use('/notes', notesRouter);
 
-app.use('/notes', require('./routes/notes'));
+// app.use('/notes', notesRouter);
+
 
 // Example:
 // const indexRouter = require('./routes/index');
@@ -111,22 +170,26 @@ app.get('/users/login', csrfProtection, (req, res) => {
   });
 });
 
+app.use('/users', csrfProtection, usersRouter);
+
+app.use('/notes', csrfProtection, requireAuth, notesRouter);
+
 //Notes page
-app.get('/users/notes', csrfProtection, (req, res) => {
-  res.render('notes', {
-    title: 'Notes',
-    csrfToken: req.csrfToken(),
-  });
-});
+// app.get('/users/notes', csrfProtection, (req, res) => {
+//   res.render('notes', {
+//     title: 'Notes',
+//     csrfToken: req.csrfToken(),
+//   });
+// });
 
 //My Notes page
-app.get('/users/notes-list', csrfProtection, (req, res) => {
-  res.render('notes-list', {
-    title: 'My Notes',
-    csrfToken: req.csrfToken(),
-    notes: [],
-  });
-});
+// app.get('/users/notes-list', csrfProtection, (req, res) => {
+//   res.render('notes-list', {
+//     title: 'My Notes',
+//     csrfToken: req.csrfToken(),
+//     notes: [],
+//   });
+// });
 
 // 404 handler error page
 app.use((req, res) => {

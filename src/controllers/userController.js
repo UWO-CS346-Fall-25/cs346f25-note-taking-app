@@ -11,14 +11,17 @@
 // Import models
 // const User = require('../models/User');
 
+const supabase = require('../config/supabase');
+
 /**
  * GET /users/register
  * Display registration form
  */
 exports.getRegister = (req, res) => {
-  res.render('users/register', {
+  res.render('register', {
     title: 'Register',
     csrfToken: req.csrfToken(),
+    error: null,
   });
 };
 
@@ -28,7 +31,15 @@ exports.getRegister = (req, res) => {
  */
 exports.postRegister = async (req, res, next) => {
   try {
-    // const { username, email, password } = req.body;
+    const { username, email, password } = req.body;
+
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: { username }
+      }
+    })
 
     // Validate input
     // Hash password

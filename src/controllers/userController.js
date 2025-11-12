@@ -46,7 +46,10 @@ exports.postRegister = async (req, res, next) => {
       email,
       password,
       options: {
-        data: { username }
+        data: {
+          username,
+          display_name: username,
+        }
       }
     });
 

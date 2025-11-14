@@ -19,7 +19,7 @@
           <li><a href="/">Home</a></li>
           <li><a href="/users/about">About</a></li>
           <% if (user) { %>
-            <li><a href="/profile">Profile</a></li>
+            <li><a href="/users/profile">Profile</a></li>
             <li>
               <form action="/users/logout" method="POST" style="display: inline;">
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
@@ -49,7 +49,7 @@
          service.</p>
       <p class="about-box">
         WebNote enables users to be able to write online notes, edit, save, sort,
-        customize, and store those notes in various folders for organization. Notes 
+        customize, and store those notes in various folders for organization. Notes
         can then be viewed and edited at any time or place. Your notes will be tamper
         proof and only available to you, ad free, anytime!
       </p>

@@ -88,6 +88,74 @@ exports.getLogin = (req, res) => {
   });
 };
 
+exports.getProfile = (req, res) => {
+  if(!req.user) return res.redirect('/users/login');
+  return res.render('profile', {
+    title: 'Your Profile',
+    csrfToken: req.csrfToken(),
+    user: req.user,
+  });
+};
+
+exports.postUpdateName = async (req, res) => {
+  try {
+    if(!req.user) return res.redirect('/users/login');
+    const { displayName } = req.body;
+    const name = (displayName || '').trim();
+    if(!name || name.length < 2) {
+      return res.redirect('/users/profile?error=Name%20too%20short');
+    }
+
+    const { error } = await supabase.auth.updateUser({
+      data: { display_name: name, username: name },
+    });
+
+    if(error) {
+      return res.redirect('/users/profile?error=' +
+        encodeURIComponent(error.message));
+    }
+
+    return res.redirect('/users/profile?message=' +
+      encodeURIComponent('Name updated'));
+  } catch (error) {
+    console.error('Update name error:' + error);
+    return res.redirect('/users/profile?error=Unexpected%20error');
+  }
+};
+
+exports.postChangePassword = async (req, res) => {
+  try {
+    if (!req.user) return res.redirect('/users/login');
+    const { currentPassword, newPassword, confirmPassword } = req.body;
+
+    if (!newPassword || newPassword.length < 6) {
+      return res.redirect('/users/profile?error=Password%20too%20short');
+    }
+    if (newPassword !== confirmPassword) {
+      return res.redirect('/users/profile?error=Passwords%20do%20not%20match');
+    }
+
+    const { error } = await supabase.auth.updateUser({
+      password: newPassword,
+    });
+
+    if (error) {
+      return res.redirect(
+        '/users/profile?error=' +
+          encodeURIComponent(error.message)
+      );
+    }
+
+    return res.redirect(
+      '/users/profile?message=' +
+        encodeURIComponent('Password updated')
+    );
+  } catch (e) {
+    console.error('Change password error:', e);
+    return res.redirect('/users/profile?error=Unexpected%20error');
+  }
+};
+
 /**
  * POST /users/login
  * Process login form
@@ -151,7 +219,7 @@ exports.postLogout = async (req, res) => {
       sameSite: 'lax',
       secure: process.env.NODE_ENV === 'production',
       path: '/',
-    }); 
+    });
     res.clearCookie('sb-refresh-token', {
       httpOnly: true,
       sameSite: 'lax',

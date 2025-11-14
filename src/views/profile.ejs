@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Log In</title>
+  <title><%= title %></title>
   <link rel="stylesheet" href="/css/style.css">
   <link rel="icon" href="/img/webnotelogo.png">
 </head>
-<body class="authentication-page">
+<body class="profile-page">
   <header>
     <nav>
       <div class="container">
@@ -19,9 +19,9 @@
           <li><a href="/users/about">About</a></li>
           <% if (user) { %>
             <li class="welcome">Welcome, <%= user.name %></li>
-            <li><a href="/users/profile">Profile</a></li>
+            <li><a href="/users/profile" aria-current="page">Profile</a></li>
             <li>
-              <form action="/users/logout" method="POST" style="display: inline;">
+              <form action="/users/logout" method="POST" style="display:inline;">
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 <button type="submit" class="btn-link">Logout</button>
               </form>
@@ -35,33 +35,19 @@
     </nav>
   </header>
 
-  <main class="authentication-container">
-    <h1 class="app-title">WebNote</h1>
-
-    <div class="authentication-card">
-      <h2>Log In</h2>
-      <% if (typeof error !== 'undefined' && error) { %>
-        <p class="error"><%= error %></p> <!-- [ADDED] -->
-      <% } %>
-      <form action="/users/login" method="POST">
-        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-
-        <div class="form-group">
-          <label>Email Address</label>
-          <input type="email" name="email" required autocomplete="email">
-        </div>
-
-        <div class="form-group">
-          <label>Password</label>
-          <input type="password" name="password"  required minlength="6" autocomplete="current-password">
-        </div>
-        <button type="submit" class="register-btn">Log In</button>
-      </form>
-
-      <p class="authentication-footer">
-        Don't have an account?
-        <a href="/users/register">Register</a>
-      </p>
+  <main class="container">
+    <h1>Your Profile</h1>
+    <div class="card">
+      <p><strong>Name:</strong> <%= user && user.name %></p>
+      <p><strong>Email:</strong> <%= user && user.email %></p>
+      <div class="actions" style="display:flex; gap:.5rem; margin-top:1rem;">
+        <a class="btn" href="/notes/list">My Notes</a>
+        <a class="btn btn-secondary" href="/notes">New Note</a>
+        <form action="/users/logout" method="POST" style="display:inline;">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <button type="submit" class="btn-danger">Logout</button>
+        </form>
+      </div>
     </div>
   </main>
 

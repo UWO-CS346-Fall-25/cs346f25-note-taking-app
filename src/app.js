@@ -66,6 +66,29 @@ app.use(
 // Note: Apply this after session middleware
 const csrfProtection = csrf({ cookie: false });
 
+app.use(async (req, res, next) => {
+  try {
+    const raw = req.headers.cookie || '';
+    const cookies = cookie.parse(raw || '');
+    const access = cookies['sb-access-token'];
+    if (!access) return next();
+
+    const { data, error } = await supabase.auth.getUser(access);
+    if (!error && data?.user) {
+      const u = data.user;
+      req.user = {
+        id: u.id,
+        email: u.email,
+        name:
+          (u.user_metadata &&
+            (u.user_metadata.display_name || u.user_metadata.username)) ||
+          (u.email ? u.email.split('@')[0] : 'User'),
+      };
+    }
+  } catch (_) { /* empty */ }
+  next();
+});
+
 // Make CSRF token available to all views
 app.use((req, res, next) => {
   res.locals.user = req.user || null;
@@ -102,12 +125,14 @@ async function requireAuth(req, res, next) {
           httpOnly: true,
           sameSite: 'lax',
           secure: process.env.NODE_ENV === 'production',
+          path: '/',
         });
 
         res.cookie('sb-refresh-token', newRefresh, {
           httpOnly: true,
           sameSite: 'lax',
           secure: process.env.NODE_ENV === 'production',
+          path: '/',
         });
 
         const again = await supabase.auth.getUser(newAccess);
@@ -116,9 +141,12 @@ async function requireAuth(req, res, next) {
 
     if(!userData?.user) return res.redirect('/users/login');
 
+    const u = userData.user;
     req.user = {
-      id: userData.user.id,
-      email: userData.user.email,
+      id: u.id,
+      email: u.email,
+      name: (u.user_metadata && (u.user_metadata.display_name || u.user_metadata.username))
+            || (u.email ? u.email.split('@')[0] : 'User')
     };
 
     next();
@@ -164,6 +192,7 @@ app.get('/users/about', csrfProtection, (req, res) => {
 
 // Log in page
 app.get('/users/login', csrfProtection, (req, res) => {
+  if (req.user) return res.redirect('/notes/list');
   res.render('login', {
     title: 'Login',
     csrfToken: req.csrfToken(),

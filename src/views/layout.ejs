@@ -21,6 +21,7 @@
           <li><a href="/">Home</a></li>
           <li><a href="/about">About</a></li>
           <% if (user) { %>
+            <li class="welcome">Welcome, <%= user.name %></li>
             <li><a href="/profile">Profile</a></li>
             <li>
               <form action="/users/logout" method="POST" style="display: inline;">

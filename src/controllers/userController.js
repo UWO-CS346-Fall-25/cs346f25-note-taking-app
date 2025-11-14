@@ -101,38 +101,38 @@ exports.postLogin = async (req, res, next) => {
       password,
     });
 
-    if(error) {
-      console.error('Login error:', error.message);
-      return res.render('login',{
+    const isProd = process.env.NODE_ENV === 'production';
+
+    if(error || !data?.session) {
+      // Re-renders log in with error message
+      return res.status(401).render('login',{
         title: 'Login',
-        error: error.message,
         csrfToken: req.csrfToken(),
+        error: error?.message || 'Invalid email or password.'
       });
     }
 
     // Sets cookies with the tokens
     const { access_token, refresh_token } = data.session;
 
-    res.setHeader('Set-Cookie', [
-      cookie.serialize('sb-access-token', access_token, {
-        httpOnly: true,
-        sameSite: 'lax',
-        secure: process.env.NODE_ENV === 'production',
-        path: '/',
-      }),
-      cookie.serialize('sb-refresh-token', refresh_token, {
-        httpOnly: true,
-        sameSite: 'lax',
-        secure: process.env.NODE_ENV === 'production',
-        path: '/',
-      }),
-    ]);
+    res.cookie('sb-access-token', access_token, {
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: isProd,
+      path: '/',
+    });
+    res.cookie('sb-refresh-token', refresh_token, {
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: isProd,
+      path: '/',
+    });
 
     // Set session
     // req.session.user = { id: user.id, username: user.username };
 
     // Redirect to home or dashboard
-    res.redirect('/notes');
+    res.redirect('/notes/list');
   } catch (error) {
     next(error);
   }
@@ -145,6 +145,19 @@ exports.postLogin = async (req, res, next) => {
 exports.postLogout = async (req, res) => {
   try {
     await supabase.auth.signOut();
+
+    res.clearCookie('sb-access-token', {
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: process.env.NODE_ENV === 'production',
+      path: '/',
+    }); 
+    res.clearCookie('sb-refresh-token', {
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: process.env.NODE_ENV === 'production',
+      path: '/',
+    });
 
     res.setHeader('Set-Cookie', [
       cookie.serialize('sb-access-token', '', {
@@ -159,7 +172,7 @@ exports.postLogout = async (req, res) => {
       }),
     ]);
 
-    res.redirect('/')
+    res.redirect('/');
   } catch(error) {
     console.error('Logout error:', error);
     res.redirect('/');

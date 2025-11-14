@@ -2,6 +2,13 @@ const express = require('express');
 const router = express.Router();
 const supabase = require('../config/supabase');
 
+router.get('/', async (req, res) => {
+  return res.render('notes', {
+    title: 'Notes',
+    csrfToken: req.csrfToken(),
+  });
+});
+
 // Create Note
 router.post('/', async (req, res) => {
   const { title, content } = req.body;

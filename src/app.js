@@ -156,16 +156,6 @@ async function requireAuth(req, res, next) {
   }
 }
 
-// Routes
-// Import and use your route files here
-
-// app.use('/notes', notesRouter);
-
-
-// Example:
-// const indexRouter = require('./routes/index');
-// app.use('/', indexRouter);
-
 // Placeholder home route
 app.get('/', csrfProtection, (req, res) => {
   res.render('index', {
@@ -203,22 +193,6 @@ app.use('/users', csrfProtection, usersRouter);
 
 app.use('/notes', csrfProtection, requireAuth, notesRouter);
 
-//Notes page
-// app.get('/users/notes', csrfProtection, (req, res) => {
-//   res.render('notes', {
-//     title: 'Notes',
-//     csrfToken: req.csrfToken(),
-//   });
-// });
-
-//My Notes page
-// app.get('/users/notes-list', csrfProtection, (req, res) => {
-//   res.render('notes-list', {
-//     title: 'My Notes',
-//     csrfToken: req.csrfToken(),
-//     notes: [],
-//   });
-// });
 
 // 404 handler error page
 app.use((req, res) => {

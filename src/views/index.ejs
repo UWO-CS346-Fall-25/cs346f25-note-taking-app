@@ -28,12 +28,11 @@
             <li><span>Welcome, <%= user.name %></span></li>
             <li><a href="/notes">Notes</a></li>
             <li><a href="/notes/list">My Notes</a></li>
-            <li>
-              <form action="/users/logout" method="POST" style="display:inline;">
+            <li><a href="/users/logout">Logout</a></li>
+              <!-- <form action="/users/logout" method="POST" style="display:inline;">
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 <button type="submit" class="btn-link">Logout</button>
-              </form>
-            </li>
+              </form> -->
           <% } else { %>
             <li><a href="/users/login">Login</a></li>
             <li><a href="/users/register">Register</a></li>

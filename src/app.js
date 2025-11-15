@@ -189,6 +189,14 @@ app.get('/users/login', csrfProtection, (req, res) => {
   });
 });
 
+//logging out 
+app.get('/users/logout', async (req, res) => {
+  await supabase.auth.signOut();
+  res.clearCookie('sb-access-token');    //clear user data
+  res.clearCookie('sb-refresh-token');   //clear user data
+  res.redirect('/');                     //go back to homepage
+});
+
 app.use('/users', csrfProtection, usersRouter);
 
 app.use('/notes', csrfProtection, requireAuth, notesRouter);

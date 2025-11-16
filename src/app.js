@@ -189,11 +189,11 @@ app.get('/users/login', csrfProtection, (req, res) => {
   });
 });
 
-//logging out 
+//logging out current user
 app.get('/users/logout', async (req, res) => {
   await supabase.auth.signOut();
   res.clearCookie('sb-access-token');    //clear user data
-  res.clearCookie('sb-refresh-token');   //clear user data
+  res.clearCookie('sb-refresh-token');   //clear more user data
   res.redirect('/');                     //go back to homepage
 });
 

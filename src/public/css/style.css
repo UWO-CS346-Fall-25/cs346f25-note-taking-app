@@ -25,7 +25,6 @@
   --light-color: #f8f9fa;
   --dark-color: #343a40;
   --off-white: #f3f3f3; /*the main background color */
-  --off-white: #f3f3f3;  /*the main background color */
   --pure-white: #ffffff; /* the bright white used in header and footer */
   --font-family:
     -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
@@ -51,8 +50,7 @@ body {
   background-color: #f9f1fb;
 }
 
-html,
-body {
+html, body {
   height: 100%;
   margin: 0;
   padding: 0;
@@ -557,7 +555,7 @@ footer {
 }
 
 /* HOME PAGE */
-.home-page {
+/* .home-page {
   color: var(---dark-color);
 }
 
@@ -573,7 +571,6 @@ footer {
 }
 
 .home-page .logo {
-  /* color: var(--primary-color); */
   color: black;
 }
 
@@ -583,7 +580,7 @@ footer {
   font: 0.9rem;
   border-top: 1px solid #e5e5e5;
   padding: 1rem 0;
-}
+} */
 
 .notes-page {
   background-color: #f9f1fb;
@@ -829,7 +826,7 @@ footer {
 }
 
 /* HOME PAGE */
-.home-page {
+/* .home-page {
   color: var(---dark-color);
 }
 
@@ -838,12 +835,13 @@ footer {
   color: #333;
   border-bottom: 1px solid #e5e5e5;
   box-shadow: none;
-}
+} */
 
-.home-page .nav-links a {
+/* .home-page .nav-links a {
   color: #333;
-}
-
+} 
+*/
+/* 
 .home-page .logo {
   /* color: var(--primary-color); */
   color: black;
@@ -855,7 +853,8 @@ footer {
   font: 0.9rem;
   border-top: 1px solid #e5e5e5;
   padding: 1rem 0;
-}
+}  */
+
 
 .notes-page {
   background-color: #f9f1fb;

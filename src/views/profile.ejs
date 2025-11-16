@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WebNote</title>
+  <title><%= title %></title>
   <link rel="stylesheet" href="/css/style.css">
   <link rel="icon" href="/img/webnotelogo.png">
 </head>
-<body>
+<body class="profile-page">
   <header>
     <nav>
       <div class="container">
@@ -18,13 +18,14 @@
           <li><a href="/">Home</a></li>
           <li><a href="/users/about">About</a></li>
           <% if (user) { %>
-            <li><a href="/users/profile">Profile</a></li>
-            <!-- <li>
-              <form action="/users/logout" method="POST" style="display: inline;">
+            <li class="welcome">Welcome, <%= user.name %></li>
+            <li><a href="/users/profile" aria-current="page">Profile</a></li>
+            <li>
+              <form action="/users/logout" method="POST" style="display:inline;">
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 <button type="submit" class="btn-link">Logout</button>
               </form>
-            </li> -->
+            </li>
           <% } else { %>
             <li><a href="/users/login">Login</a></li>
             <li><a href="/users/register">Register</a></li>
@@ -34,29 +35,19 @@
     </nav>
   </header>
 
-  <main class="notes-page">
-    <div class="note-editor-container">
-      <div class="note-editor-header">
-        <h1>New Note</h1>
-        <a href="/" class="btn-secondary">Back</a>
+  <main class="container">
+    <h1>Your Profile</h1>
+    <div class="card">
+      <p><strong>Name:</strong> <%= user && user.name %></p>
+      <p><strong>Email:</strong> <%= user && user.email %></p>
+      <div class="actions" style="display:flex; gap:.5rem; margin-top:1rem;">
+        <a class="btn" href="/notes/list">My Notes</a>
+        <a class="btn btn-secondary" href="/notes">New Note</a>
+        <form action="/users/logout" method="POST" style="display:inline;">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <button type="submit" class="btn-danger">Logout</button>
+        </form>
       </div>
-
-      <form class="note-editor-form" action="/notes" method="POST">
-        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-        <div class="form-group">
-          <label for="title">Title</label>
-          <input type="text" id="title" name="title" placeholder="Enter note title..." required>
-        </div>
-
-        <div class="form-group">
-          <label for="content">Content</label>
-          <textarea id="content" name="content" placeholder="Starting writing your note..."required></textarea>
-        </div>
-
-        <div class="note-editor-actions">
-          <button type="submit" class="btn">Save Note</button>
-        </div>
-      </form>
     </div>
   </main>
 
@@ -65,8 +56,5 @@
       <p>&copy; 2025 CS346 Project. All rights reserved.</p>
     </div>
   </footer>
-
-  <script src="/js/main.js"></script>
-
 </body>
 </html>

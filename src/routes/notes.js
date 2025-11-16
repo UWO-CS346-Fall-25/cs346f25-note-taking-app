@@ -2,6 +2,13 @@ const express = require('express');
 const router = express.Router();
 const supabase = require('../config/supabase');
 
+router.get('/', async (req, res) => {
+  return res.render('notes', {
+    title: 'Notes',
+    csrfToken: req.csrfToken(),
+  });
+});
+
 // Create Note
 router.post('/', async (req, res) => {
   const { title, content } = req.body;
@@ -14,22 +21,16 @@ router.post('/', async (req, res) => {
   //   });
   // }
 
-  const { error } = await supabase.from('notes').insert([{ title, content }]);
+const { error } = await supabase
+  .from('notes')
+  .insert([{ title, content, user_uuid: req.user.id }]);
 
-  // if(error) {
-  //   console.error(error);
-  //   return res.render('notes', {
-  //     title: 'Notes',
-  //     content: 'Failed to save note.',
-  //     // csrfToken: req.csrfToken(),
-  //   });
+  // if (error) {
+  //   console.error('Insert failed:', error);
+  //   return res.status(500).send('Failed to save note.');
+  // } else {
+  //   console.log('Insert succeeded:', content);
   // }
-  if (error) {
-    console.error('Insert failed:', error);
-    return res.status(500).send('Failed to save note.');
-  } else {
-    console.log('Insert succeeded:', content);
-  }
 
   res.redirect('/notes/list');
 });
@@ -39,6 +40,7 @@ router.get('/list', async (req, res) => {
   const { data, error } = await supabase
     .from('notes')
     .select('*')
+    .eq('user_uuid', req.user.id)
     .order('created_at', { ascending: false });
 
   if (error) {

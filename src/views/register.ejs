@@ -19,7 +19,7 @@
           <li><a href="/">Home</a></li>
           <li><a href="/users/about">About</a></li>
           <% if (user) { %>
-            <li><a href="/profile">Profile</a></li>
+            <li><a href="/users/profile">Profile</a></li>
             <li>
               <form action="/users/logout" method="POST" style="display: inline;">
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
@@ -41,6 +41,7 @@
     <div class="authentication-card">
       <h2>Register</h2>
       <form id="registerForm" action="/users/register" method="POST">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
         <div class="form-group">
           <label>Username</label>
           <input type="text" name="username" required minlength="8">

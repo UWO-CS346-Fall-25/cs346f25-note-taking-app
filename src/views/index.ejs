@@ -8,7 +8,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- <title><%= title %> - CS346 Project</title> -->
+  <!-- <title><%= title %> - CS346 Project</title> --> <!-- not sure about this -->
   <title>WebNote</title>
   <link rel="stylesheet" href="/css/style.css">
   <link rel="icon" href="/img/webnotelogo.png">
@@ -20,23 +20,22 @@
         <a href="/" class="logo">
           <img src="/img/webnotelogo.png" alt="WebNote logo" width="15%">
         </a>
-        <!-- WebNote add the title here-->
+        WebNote
         <ul class="nav-links">
           <li><a href="/">Home</a></li>
           <li><a href="/users/about">About</a></li>
           <% if (user) { %>
-            <li><a href="/profile">Profile</a></li>
-            <li>
-              <form action="/users/logout" method="POST" style="display: inline;">
+            <li><span>Welcome, <%= user.name %></span></li>
+            <li><a href="/notes">Notes</a></li>
+            <li><a href="/notes/list">My Notes</a></li>
+            <li><a href="/users/logout">Logout</a></li>
+              <!-- <form action="/users/logout" method="POST" style="display:inline;">
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 <button type="submit" class="btn-link">Logout</button>
-              </form>
-            </li>
+              </form> -->
           <% } else { %>
             <li><a href="/users/login">Login</a></li>
             <li><a href="/users/register">Register</a></li>
-            <li><a href="/users/notes">Notes</a></li>
-            <li><a href="/users/notes-list">My Notes</a><li>
           <% } %>
         </ul>
       </div>

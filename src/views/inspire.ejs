@@ -13,6 +13,7 @@
         <ul class="nav-links">
           <li><a href="/">Home</a></li>
           <li><a href="/users/about">About</a></li>
+          <li><a href="/api/inspire">Inspiration</a></li>
           <% if (user) { %>
             <li class="welcome">Welcome, <%= user.name %></li>
             <li><a href="/users/profile">Profile</a></li>
@@ -41,7 +42,7 @@
         <p style="font-size:1.25rem; line-height:1.6">“<%= quote %>”</p>
         <p class="muted" style="margin-top:.5rem">— <%= author %></p>
       </section>
-      
+
       <p class="muted" style="margin-top:.75rem">
         Quotes by <a href="https://zenquotes.io/" target="_blank" rel="noopener">ZenQuotes API</a>
       </p>

@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body class="profile-page">
+  <header>
+    <nav>
+      <div class="container">
+        <a href="/" class="logo">WebNote</a>
+        <ul class="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/users/about">About</a></li>
+          <% if (user) { %>
+            <li class="welcome">Welcome, <%= user.name %></li>
+            <li><a href="/users/profile">Profile</a></li>
+            <li>
+              <form action="/users/logout" method="POST" style="display:inline;">
+                <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
+                <button type="submit" class="btn-link">Logout</button>
+              </form>
+            </li>
+          <% } else { %>
+            <li><a href="/users/login">Login</a></li>
+            <li><a href="/users/register">Register</a></li>
+          <% } %>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Inspiration</h1>
+
+    <% if (typeof error !== 'undefined' && error) { %>
+      <div class="banner error"><%= error %></div>
+    <% } else if (quote) { %>
+      <section class="card">
+        <p style="font-size:1.25rem; line-height:1.6">“<%= quote %>”</p>
+        <p class="muted" style="margin-top:.5rem">— <%= author %></p>
+      </section>
+      
+      <p class="muted" style="margin-top:.75rem">
+        Quotes by <a href="https://zenquotes.io/" target="_blank" rel="noopener">ZenQuotes API</a>
+      </p>
+    <% } %>
+
+    <form method="GET" action="/api/inspire" class="actions" style="margin-top:1rem;">
+      <button class="btn btn-secondary" type="submit">New quote</button>
+    </form>
+  </main>
+</body>
+</html>

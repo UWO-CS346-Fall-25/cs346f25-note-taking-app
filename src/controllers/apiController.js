@@ -1,42 +1,53 @@
 /* eslint-env node */
-/* global fetch, URLSearchParams */ // this works, it just says that these exists
+/* global fetch, AbortController */
 
-const API = 'https://api.quotable.io';
+const API = 'https://zenquotes.io/api';
 
-/**
- * GET /api/inspire
- * - Renders a single random quote
- * - Supports optional filters via querystring:
- *   /api/inspire?tags=inspirational|success 
- */
+// tiny timeout helper (keeps requests from hanging)
+const fetchWithTimeout = async (url, ms = 6000) => {
+  const ctrl = new AbortController();
+  const id = setTimeout(() => ctrl.abort(), ms);
+  try {
+    return await fetch(url, {
+      signal: ctrl.signal,
+      headers: { 'User-Agent': 'webnote/1.0' },
+    });
+  } finally {
+    clearTimeout(id);
+  }
+};
+
 exports.getInspiration = async (req, res) => {
   try {
-    const { tags, author } = req.query;
-    let url = `${API}/random`;
-    const params = new URLSearchParams();
-    if (tags) params.set('tags', tags);
-    if (author) params.set('author', author);
-    if ([...params].length) url += `?${params.toString()}`;
 
-    const r = await fetch(url);
-    if (!r.ok) throw new Error(`Upstream ${r.status}`);
-    const data = await r.json();
-    // Quotable random returns: { _id, content, author, tags, ... }
+    // GET /api/random  → returns an array: [{ q: "...", a: "Author", ... }]
+    const key = process.env.ZENQUOTES_KEY;
+    const url = key ? `${API}/random/${key}` : `${API}/random`;
+
+    const r = await fetchWithTimeout(`${url}?cb=${Date.now()}`, 6000);
+    if (!r.ok) {
+      const txt = await r.text().catch(() => '');
+      console.error('ZenQuotes non-OK:', r.status, txt);
+      throw new Error(`Upstream ${r.status}`);
+    }
+
+    const arr = await r.json().catch(() => []);
+    const item = Array.isArray(arr) && arr[0] ? arr[0] : null;
 
     return res.render('inspire', {
       title: 'Inspiration',
-      quote: data.content,
-      author: data.author,
-      filters: { tags: tags || '', author: author || '' },
+      quote: item ? item.q : null, // fields: q = quote, a = author
+      author: item ? item.a : null,
+      attribution: !key,
     });
   } catch (err) {
-    console.error('Quotable error:', err);
+    console.error('ZenQuotes error:', err?.message || err);
     return res.status(502).render('inspire', {
       title: 'Inspiration',
       quote: null,
       author: null,
-      error: 'Could not load inspiration right now. Please try again later.',
-      filters: { tags: req.query.tags || '', author: req.query.author || '' },
+      error: 'Could not load inspiration right now. Please try again.',
+      attribution: true,
     });
   }
 };

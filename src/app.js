@@ -19,6 +19,7 @@ const cookie = require('cookie');
 
 const usersRouter = require('./routes/users');
 const notesRouter = require('./routes/notes');
+const apiRouter = require('./routes/api');
 
 // Initialize Express app
 const app = express();
@@ -193,6 +194,7 @@ app.use('/users', csrfProtection, usersRouter);
 
 app.use('/notes', csrfProtection, requireAuth, notesRouter);
 
+app.use('/api', apiRouter);
 
 // 404 handler error page
 app.use((req, res) => {

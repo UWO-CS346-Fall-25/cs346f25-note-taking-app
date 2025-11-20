@@ -17,11 +17,8 @@
 /* CSS Variables */
 :root {
   --primary-color: #007bff; /* background for welcome message */
-  --secondary-color: #6c757d; /* border color? */
-  --success-color: #28a745; /* unused */
+  --secondary-color: #6c757d; /* border color */
   --danger-color: #dc3545;
-  --warning-color: #ffc107; /* unused */
-  --info-color: #17a2b8;
   --light-color: #f8f9fa;
   --dark-color: #343a40;
   --off-white: #f3f3f3; /*the main background color */
@@ -113,7 +110,6 @@ nav .container {
 }
 
 .logo {
-  /* color: var(--primary-color); */
   color: black;
 }
 
@@ -554,34 +550,6 @@ footer {
   background-color: #0056b3;
 }
 
-/* HOME PAGE */
-/* .home-page {
-  color: var(---dark-color);
-}
-
-.home-page header {
-  background-color: var(--pure-white);
-  color: #333;
-  border-bottom: 1px solid #e5e5e5;
-  box-shadow: none;
-}
-
-.home-page .nav-links a {
-  color: #333;
-}
-
-.home-page .logo {
-  color: black;
-}
-
-.home-page footer {
-  background-color: var(--pure-white);
-  color: #666;
-  font: 0.9rem;
-  border-top: 1px solid #e5e5e5;
-  padding: 1rem 0;
-} */
-
 .notes-page {
   background-color: #f9f1fb;
   display: flex;
@@ -825,121 +793,6 @@ footer {
   background-color: #0056b3;
 }
 
-/* HOME PAGE */
-/* .home-page {
-  color: var(---dark-color);
-}
-
-.home-page header {
-  background-color: #ffffff;
-  color: #333;
-  border-bottom: 1px solid #e5e5e5;
-  box-shadow: none;
-} */
-
-/* .home-page .nav-links a {
-  color: #333;
-} 
-*/
-/* 
-.home-page .logo {
-  /* color: var(--primary-color); */
-  /* color: black; */
-/* } */
-
-/* .home-page footer { */
-  /* background-color: #ffffff; */
-  /* color: #666; */
-  /* font: 0.9rem; */
-  /* border-top: 1px solid #e5e5e5; */
-  /* padding: 1rem 0; */
-/* }   */
-
-
-.notes-page {
-  background-color: #f9f1fb;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 4rem 1rem;
-  min-height: 100vh;
-  width: 100%;
-  box-sizing: border-box;
-  margin-top: 2rem;
-}
-
-.note-editor-container {
-  background-color: #fff;
-  width: 95%;
-  max-width: 1000px;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  padding: 2.5rem 3rem;
-  margin: auto;
-}
-
-.note-editor-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
-}
-
-.note-editor-header h1 {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: var(--dark-color);
-}
-
-.note-editor-header .btn {
-  font-size: 0.95rem;
-  padding: 0.6rem 1.2rem;
-}
-
-.note-editor-form .form-group {
-  margin-bottom: 1.5rem;
-}
-
-.note-editor-form label {
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  display: block;
-  color: #333;
-}
-
-.note-editor-form input[type='text'] {
-  width: 100%;
-  padding: 0.7rem;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-}
-
-.note-editor-form textarea {
-  width: 100%;
-  height: 400px;
-  padding: 1rem;
-  font-size: 1rem;
-  line-height: 1.6;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  resize: vertical;
-}
-
-.note-editor-form textarea:focus,
-.note-editor-form input:focus {
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
-  outline: none;
-}
-
-.note-editor-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
 .btn-secondary {
   background-color: #f3f3f3;
   color: #333;
@@ -949,8 +802,4 @@ footer {
   font-weight: 600;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   transition: background 0.2s ease-in-out;
-}
-
-.btn-secondary:hover {
-  background-color: #e0e0e0;
 }

@@ -3,21 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Notes</title>
   <link rel="stylesheet" href="/css/style.css">
   <link rel="icon" href="/img/webnotelogo.png">
+  <title>My Notes</title>
 </head>
 <body>
   <header>
-    <h1>Your Saved Notes</h1>
     <nav>
       <div class="container">
         <a href="/" class="logo">
           <img src="/img/webnotelogo.png" alt="WebNote logo" width="15%">
         </a>
+        <h1>Your Saved Notes</h1>
         <ul class="nav-links">
           <li><a href="/">Home</a></li>
           <li><a href="/users/about">About</a></li>
+          <li><a href="/api/inspire">Inspiration</a></li>
           <% if (user) { %>
             <li><a href="/users/profile">Profile</a></li>
             <!-- <li><a href="/users/logout">Logout</a></li> -->
@@ -46,5 +47,10 @@
     <% } %>
     <a href="/notes">Add New Note</a>
   </main>
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 CS346 Project. All rights reserved.</p>
+    </div>
+  </footer>
 </body>
 </html>

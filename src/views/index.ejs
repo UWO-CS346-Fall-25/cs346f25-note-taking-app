@@ -24,12 +24,13 @@
         <ul class="nav-links">
           <li><a href="/">Home</a></li>
           <li><a href="/users/about">About</a></li>
+          <li><a href="/api/inspire">Inspiration</a></li>
           <% if (user) { %>
             <li><span>Welcome, <%= user.name %></span></li>
             <li><a href="/notes">Notes</a></li>
             <li><a href="/notes/list">My Notes</a></li>
-            <li><a href="/users/logout">Logout</a></li>
-              <!-- <form action="/users/logout" method="POST" style="display:inline;">
+            <li>
+              <form action="/users/logout" method="POST" style="display:inline;">
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 <button type="submit" class="btn-link">Logout</button>
               </form> -->

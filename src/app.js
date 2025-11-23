@@ -19,6 +19,7 @@ const cookie = require('cookie');
 
 const usersRouter = require('./routes/users');
 const notesRouter = require('./routes/notes');
+const apiRouter = require('./routes/api');
 
 // Initialize Express app
 const app = express();
@@ -189,13 +190,11 @@ app.get('/users/login', csrfProtection, (req, res) => {
   });
 });
 
-//logging out current user
-app.get('/users/logout', async (req, res) => {
-  await supabase.auth.signOut();
-  res.clearCookie('sb-access-token');    //clear user data
-  res.clearCookie('sb-refresh-token');   //clear more user data
-  res.redirect('/');                     //go back to homepage
-});
+app.use('/users', csrfProtection, usersRouter);
+
+app.use('/notes', csrfProtection, requireAuth, notesRouter);
+
+app.use('/api', apiRouter);
 
 app.use('/users', csrfProtection, usersRouter);
 

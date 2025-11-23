@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
   <title><%= title %></title>
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/style.css" />
   <link rel="icon" href="/img/webnotelogo.png">
 </head>
 <body class="profile-page">
@@ -20,10 +19,10 @@
           <li><a href="/api/inspire">Inspiration</a></li>
           <% if (user) { %>
             <li class="welcome">Welcome, <%= user.name %></li>
-            <li><a href="/users/profile" aria-current="page">Profile</a></li>
+            <li><a href="/users/profile">Profile</a></li>
             <li>
               <form action="/users/logout" method="POST" style="display:inline;">
-                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
                 <button type="submit" class="btn-link">Logout</button>
               </form>
             </li>
@@ -37,21 +36,25 @@
   </header>
 
   <main class="container">
-    <h1>Your Profile</h1>
-    <div class="card">
-      <p><strong>Name:</strong> <%= user && user.name %></p>
-      <p><strong>Email:</strong> <%= user && user.email %></p>
-      <div class="actions" style="display:flex; gap:.5rem; margin-top:1rem;">
-        <a class="btn" href="/notes/list">My Notes</a>
-        <a class="btn btn-secondary" href="/notes">New Note</a>
-        <form action="/users/logout" method="POST" style="display:inline;">
-          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-          <button type="submit" class="btn-danger">Logout</button>
-        </form>
-      </div>
-    </div>
-  </main>
+    <h1>Inspiration</h1>
 
+    <% if (typeof error !== 'undefined' && error) { %>
+      <div class="banner error"><%= error %></div>
+    <% } else if (quote) { %>
+      <section class="card">
+        <p style="font-size:1.25rem; line-height:1.6">“<%= quote %>”</p>
+        <p class="muted" style="margin-top:.5rem">— <%= author %></p>
+      </section>
+
+      <p class="muted" style="margin-top:.75rem">
+        Quotes by <a href="https://zenquotes.io/" target="_blank" rel="noopener">ZenQuotes API</a>
+      </p>
+    <% } %>
+
+    <form method="GET" action="/api/inspire" class="actions" style="margin-top:1rem;">
+      <button class="btn btn-secondary" type="submit">New quote</button>
+    </form>
+  </main>
   <footer>
     <div class="container">
       <p>&copy; 2025 CS346 Project. All rights reserved.</p>

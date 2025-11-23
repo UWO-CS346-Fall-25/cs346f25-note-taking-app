@@ -184,8 +184,18 @@ ISC
 
 ## WEEK 11 UPDATES
 
-- The CSRF token and user authentication now works properly, and user sessions are properly logged. 
+- The CSRF token and user authentication now works properly, and user sessions are properly logged.
 - Users are now able to register username, password, and email, as well as log in afterwards after confirming email via an email from Supabase after registration. Passwords are hashed in Supabase and cookies are configured as well.
 - Logout button added which properly clears all cookies and user authentication data.
 - Password strength field implemented.
 - Visual "Welcome" message was added on homepage.
+
+## WEEK 12 UPDATES
+
+- API: ZenQuotes - GET https://zenquotes.io/api/random
+- ROUTE: GET /api/inspire
+- FLOW: Express route -> controller (the server side fetch) -> EJS view (inspire.ejs)
+- Error Handling: try/catch
+- Security: No API key required
+- ![Inspiration Page](src/public/img/inspire.png)
+- Also implemented a few UI readability changes.

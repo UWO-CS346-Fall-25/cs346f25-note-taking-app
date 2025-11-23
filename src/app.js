@@ -196,6 +196,11 @@ app.use('/notes', csrfProtection, requireAuth, notesRouter);
 
 app.use('/api', apiRouter);
 
+app.use('/users', csrfProtection, usersRouter);
+
+app.use('/notes', csrfProtection, requireAuth, notesRouter);
+
+
 // 404 handler error page
 app.use((req, res) => {
   res.status(404).render('error', {

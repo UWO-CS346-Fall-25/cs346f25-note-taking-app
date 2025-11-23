@@ -103,6 +103,41 @@ header {
   padding: 25px 0px;
 }
 
+header .container {
+  display: flex;
+  align-items: center;
+}
+
+header .container .logo {
+  flex: 1;               
+  display: flex;          
+  justify-content: flex-start;
+  pointer-events: auto;   
+}
+
+header .container .logo img {
+  display: block;
+  width: 80px;           
+  height: auto;
+}
+
+header .container h1 {
+  flex: 1;                
+  text-align: center;     
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+header .container .nav-links {
+  flex: 1;               
+  display: flex;
+  justify-content: flex-end; 
+  gap: 20px;
+  list-style: none;
+}
+
+
 nav .container {
   display: flex;
   justify-content: space-between;
@@ -110,7 +145,11 @@ nav .container {
 }
 
 .logo {
-  color: black;
+  pointer-events: none; /* gets rid of excess click space */
+}
+
+.logo img {
+  pointer-events: auto; /* make only the image clickable */
 }
 
 .logo:hover {

@@ -198,3 +198,4 @@ ISC
 - Error Handling: try/catch
 - Security: No API key required
 - ![Inspiration Page](src/public/img/inspire.png)
+- Also implemented a few UI readability changes.

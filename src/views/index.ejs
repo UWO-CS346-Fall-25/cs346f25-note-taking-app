@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="/css/style.css">
   <link rel="icon" href="/img/webnotelogo.png">
 </head>
-<body class="home-page">
+<body>
   <header>
     <nav>
       <div class="container">
@@ -33,7 +33,7 @@
               <form action="/users/logout" method="POST" style="display:inline;">
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 <button type="submit" class="btn-link">Logout</button>
-              </form> -->
+              </form>
           <% } else { %>
             <li><a href="/users/login">Login</a></li>
             <li><a href="/users/register">Register</a></li>
@@ -48,10 +48,8 @@
       <div class="hero-text">
         <h1>The online note-taking app for your ideas!</h1>
         <p>Capture and organize your notes in this web application.</p>
-        <!-- this link will go to register page -->
         <a href="/users/register">Get Started!</a>
       </div>
-      <!-- image goes here -->
       <div class="hero-image">
         <div class="note-preview">
           <div class="sidebar">

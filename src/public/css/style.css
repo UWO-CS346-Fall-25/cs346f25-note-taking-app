@@ -112,7 +112,6 @@ header .container .logo {
   flex: 1;               
   display: flex;          
   justify-content: flex-start;
-  pointer-events: auto;   
 }
 
 header .container .logo img {

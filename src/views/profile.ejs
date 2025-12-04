@@ -14,6 +14,7 @@
         <a href="/" class="logo">
           <img src="/img/webnotelogo.png" alt="WebNote logo" width="15%">
         </a>
+        <h1>Your Profile</h1>
         <ul class="nav-links"> <!-- these 3 links always show up -->
           <li><a href="/">Home</a></li>
           <li><a href="/users/about">About</a></li>
@@ -43,10 +44,6 @@
         <a class="btn" href="/notes/list">My Notes</a>
         <a class="btn btn-secondary" href="/notes">New Note</a>
         <a class="btn-logout" href="/users/logout">Logout</a>
-        <form action="/users/logout" method="POST" style="display:inline;">
-          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-          <button type="submit" class="btn-danger">Logout</button>
-        </form>
       </div>
     </div>
   </main>

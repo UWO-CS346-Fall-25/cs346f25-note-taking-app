@@ -19,15 +19,15 @@
           <li><a href="/">Home</a></li>
           <li><a href="/users/about">About</a></li>
           <li><a href="/api/inspire">Inspiration</a></li>
-          <% if (user) { %>
+          <% if (user) { %> <!-- if user is logged in -->
             <li><a href="/users/profile">Profile</a></li>
-            <li>
+            <!-- <li>
               <form action="/users/logout" method="POST" style="display: inline;">
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 <button type="submit" class="btn-link">Logout</button>
               </form>
-            </li>
-          <% } else { %>
+            </li> -->
+          <% } else { %> <!-- if user is NOT logged in -->
             <li><a href="/users/login">Login</a></li>
             <li><a href="/users/register">Register</a></li>
           <% } %>

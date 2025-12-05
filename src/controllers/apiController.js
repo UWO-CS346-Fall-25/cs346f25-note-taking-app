@@ -1,6 +1,13 @@
 /* eslint-env node */
 /* global fetch, AbortController */
 
+/**
+ * Controller: getInspiration
+ * Purpose: Fetch a random quote from ZenQuotes server-side and render the inspire page
+ * Input: none (GET)
+ * Output: renders inspire.ejs with { quote, author } or error banner
+ */
+
 const API = 'https://zenquotes.io/api';
 
 // tiny timeout helper (keeps requests from hanging)
@@ -17,20 +24,23 @@ const fetchWithTimeout = async (url, ms = 6000) => {
   }
 };
 
+// Timestamp helper
+const ts = () => `[${new Date().toISOString()}]`;
+
 exports.getInspiration = async (req, res) => {
-  console.log('[ApiController] GET /api/inspire start');
+  console.log(`${ts()} [ApiController] GET /api/inspire start`);
   try {
     // GET /api/random  → returns an array: [{ q: "...", a: "Author", ... }]
     const key = process.env.ZENQUOTES_KEY;
     const base = key ? `${API}/random/${key}` : `${API}/random`;
     const url = `${base}?cb=${Date.now()}`;
 
-    console.log('[ApiController] Fetching random quote from ZenQuotes');
+    console.log(`${ts()} [ApiController] Fetching random quote from ZenQuotes`);
     const r = await fetchWithTimeout(url, 6000);
 
     if (!r.ok) {
       const txt = await r.text().catch(() => '');
-      console.error('[ApiController] ZenQuotes non-OK', {
+      console.error(`${ts()} [ApiController] ZenQuotes non-OK`, {
         status: r.status,
         body: txt,
       });
@@ -40,7 +50,7 @@ exports.getInspiration = async (req, res) => {
     const arr = await r.json().catch(() => []);
     const item = Array.isArray(arr) && arr[0] ? arr[0] : null;
 
-    console.log('[ApiController] ZenQuotes success');
+    console.log(`${ts()} [ApiController] ZenQuotes success`);
     return res.render('inspire', {
       title: 'Inspiration',
       quote: item ? item.q : null, // fields: q = quote, a = author
@@ -48,7 +58,9 @@ exports.getInspiration = async (req, res) => {
       attribution: !key,
     });
   } catch (err) {
-    console.error('[ApiController] ZenQuotes error', { message: err?.message });
+    console.error(`${ts()} [ApiController] ZenQuotes error`, {
+      message: err?.message,
+    });
     return res.status(502).render('inspire', {
       title: 'Inspiration',
       quote: null,

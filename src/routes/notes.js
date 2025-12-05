@@ -2,12 +2,8 @@ const express = require('express');
 const router = express.Router();
 const supabase = require('../config/supabase');
 
-// router.get('/', async (req, res) => {
-//   return res.render('notes', {
-//     title: 'Notes',
-//     csrfToken: req.csrfToken(),
-//   });
-// });
+// Timestamp helper
+const ts = () => `[${new Date().toISOString()}]`;
 
 router.get('/', async (req, res) => {
   const noteId = req.query.id; // <-- if provided, we're editing
@@ -34,7 +30,7 @@ router.get('/', async (req, res) => {
   });
 });
 
-// Update Note
+
 router.post('/:id/edit', async (req, res) => {
   console.log('[NotesRoute] POST /notes/:id/edit start', { user: req.user?.id });
 
@@ -73,9 +69,15 @@ router.post('/:id/edit', async (req, res) => {
 });
 
 
-// Create Note
+/**
+ * POST /notes
+ * Create a note for the current user
+ *
+ * Input: req.body { title, content }
+ * Output: redirect to /notes/list on success; render error on failure
+ */
 router.post('/', async (req, res) => {
-  console.log('[NotesRoute] POST /notes start', { user: req.user?.id });
+  console.log(`${ts()} [NotesRoute] POST /notes start`, { user: req.user?.id });
   try {
     const { title, content } = req.body;
 
@@ -84,7 +86,10 @@ router.post('/', async (req, res) => {
       .insert([{ title, content, user_uuid: req.user.id }]);
 
     if (error) {
-      console.error('[NotesRoute] DB insert error', { code: error.code, msg: error.message });
+      console.error(`${ts()} [NotesRoute] DB insert error`, {
+        code: error.code,
+        msg: error.message,
+      });
       return res.status(500).render('error', {
         title: 'Error',
         message: 'Failed to save note.',
@@ -92,10 +97,12 @@ router.post('/', async (req, res) => {
       });
     }
 
-    console.log('[NotesRoute] DB insert success');
+    console.log(`${ts()} [NotesRoute] DB insert success`);
     res.redirect('/notes/list');
   } catch (e) {
-    console.error('[NotesRoute] Unexpected error', { message: e?.message }); // [ADDED]
+    console.error(`${ts()} [NotesRoute] Unexpected error`, {
+      message: e?.message,
+    });
     return res.status(500).render('error', {
       title: 'Error',
       message: 'Unexpected error while saving your note.',
@@ -104,9 +111,17 @@ router.post('/', async (req, res) => {
   }
 });
 
-// List Notes
+/**
+ * GET /notes/list
+ * List notes for the current user
+ *
+ * Input: none
+ * Output: renders notes-list.ejs with notes array
+ */
 router.get('/list', async (req, res) => {
-  console.log('[NotesRoute] GET /notes/list start', { user: req.user?.id });
+  console.log(`${ts()} [NotesRoute] GET /notes/list start`, {
+    user: req.user?.id,
+  });
 
   try {
     const { data, error } = await supabase
@@ -116,7 +131,7 @@ router.get('/list', async (req, res) => {
       .order('created_at', { ascending: false });
 
     if (error) {
-      console.error('[NotesRoute] DB select error', {
+      console.error(`${ts()} [NotesRoute] DB select error`, {
         code: error.code,
         msg: error.message,
       });
@@ -127,13 +142,15 @@ router.get('/list', async (req, res) => {
       });
     }
 
-    console.log('[NotesRoute] DB select success', { count: data?.length || 0 });
+    console.log(`${ts()} [NotesRoute] DB select success`, {
+      count: data?.length || 0,
+    });
     res.render('notes-list', {
       title: 'Your Notes',
       notes: data,
     });
   } catch (e) {
-    console.error('[NotesRoute] Unexpected error', { message: e?.message }); // [ADDED]
+    console.error(`${ts()} [NotesRoute] Unexpected error`, { message: e?.message }); 
     return res.status(500).render('error', {
       title: 'Error',
       message: 'Unexpected error while fetching notes.',

@@ -41,7 +41,7 @@
     <div class="authentication-card">
       <h2>Log In</h2>
       <% if (typeof error !== 'undefined' && error) { %>
-        <p class="error"><%= error %></p> <!-- [ADDED] -->
+        <p class="error"><%= error %></p> 
       <% } %>
       <form action="/users/login" method="POST">
         <input type="hidden" name="_csrf" value="<%= csrfToken %>">

@@ -223,7 +223,9 @@ app.use((req, res) => {
 app.use((err, req, res, _next) => {
   // Log error in development
   if (process.env.NODE_ENV === 'development') {
-    console.error(err.stack);
+    console.error('[AppError]', err.stack);
+  } else {
+    console.error('[AppError]', err.message);
   }
 
   // Set locals, only providing error details in development

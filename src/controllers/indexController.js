@@ -13,12 +13,13 @@
 
 // Import models if needed
 // const SomeModel = require('../models/SomeModel');
-
+const ts = () => `[${new Date().toISOString()}]`;
 /**
  * GET /
  * Display the home page
  */
 exports.getHome = async (req, res, next) => {
+  console.log(`${ts()} [IndexController] GET / start`);
   try {
     // Fetch any data needed for the home page
     // const data = await SomeModel.findAll();
@@ -28,7 +29,11 @@ exports.getHome = async (req, res, next) => {
       // data: data,
       csrfToken: req.csrfToken(),
     });
+    console.log(`${ts()} [IndexController] GET / render success`);
   } catch (error) {
+    console.error(`${ts()} [IndexController] GET / error`, {
+      message: error?.message,
+    });
     next(error);
   }
 };
@@ -38,12 +43,17 @@ exports.getHome = async (req, res, next) => {
  * Display the about page
  */
 exports.getAbout = async (req, res, next) => {
+  console.log(`${ts()} [IndexController] GET /about start`);
   try {
     res.render('about', {
       title: 'About',
       csrfToken: req.csrfToken(),
     });
+    console.log(`${ts()} [IndexController] GET /about render success`);
   } catch (error) {
+    console.error(`${ts()} [IndexController] GET /about error`, {
+      message: error?.message,
+    });
     next(error);
   }
 };

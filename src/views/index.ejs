@@ -21,10 +21,6 @@
           <img src="/img/webnotelogo.png" alt="WebNote logo" width="15%">
         </a>
         <h1>WebNote</h1>
-        <% if (user) { %>
-          <li class="welcome">Welcome, <%= user.name %></li>
-        <% } %>
-
         <ul class="nav-links"> <!-- these 3 links always show up -->
           <li><a href="/">Home</a></li>
           <li><a href="/users/about">About</a></li>
@@ -48,6 +44,9 @@
   <main class="container">
     <section class="hero">
       <div class="hero-text">
+        <% if (user) { %>
+          <li class="welcome">Welcome, <%= user.name %>!</li>
+        <% } %>
         <h1>The online note-taking app for your ideas!</h1>
         <p>Capture and organize your notes in this web application.</p>
         <a href="/users/register">Get Started!</a>

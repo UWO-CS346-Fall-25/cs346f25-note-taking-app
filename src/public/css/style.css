@@ -53,6 +53,11 @@ html, body {
   padding: 0;
 }
 
+.welcome {
+  display: flex;
+  font-style: italic;
+}
+
 a {
   color: var(--primary-color);
   text-decoration: none;
@@ -65,8 +70,10 @@ a:hover {
 
 /* Layout */
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
+  max-width: 1400px;
+  margin: auto;
+  padding: auto;
+  font-size: 100;
   padding: 0 20px;
 }
 

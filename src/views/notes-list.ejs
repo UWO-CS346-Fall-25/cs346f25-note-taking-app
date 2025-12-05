@@ -41,16 +41,37 @@
     <% } else { %>
       <ul>
         <% notes.forEach(note => { %>
-          <li>
+          <!-- <li>
             <%= note.title %><br>
             <%= note.content %><br>
             <small><%= new Date(note.created_at) %></small>
+          </li> -->
+          <li>
+            <strong><%= note.title %></strong><br>
+            <%= note.content %><br>
+            <small><%= new Date(note.created_at).toLocaleString() %></small>
+            <br>
+
+            <!-- EDIT BUTTON (loads /notes?id=NOTE_ID) -->
+            <form action="/notes" method="GET" style="display:inline;">
+              <input type="hidden" name="id" value="<%= note.id %>">
+              <button type="submit">Edit</button>
+            </form>
+
+            <!-- DELETE BUTTON -->
+            <form action="/notes/<%= note.id %>/delete" method="POST" style="display:inline;">
+              <button type="submit" onclick="return confirm('Delete this note?')">
+                Delete
+              </button>
+            </form>
           </li>
+
         <% }) %>
       </ul>
     <% } %>
     <a href="/notes">Add New Note</a>
   </main>
+
   <footer>
     <div class="container">
       <p>&copy; 2025 CS346 Project. All rights reserved.</p>

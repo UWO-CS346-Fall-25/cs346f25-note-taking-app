@@ -2,27 +2,82 @@ const express = require('express');
 const router = express.Router();
 const supabase = require('../config/supabase');
 
+// router.get('/', async (req, res) => {
+//   return res.render('notes', {
+//     title: 'Notes',
+//     csrfToken: req.csrfToken(),
+//   });
+// });
+
 router.get('/', async (req, res) => {
+  const noteId = req.query.id; // <-- if provided, we're editing
+
+  let note = null;
+
+  if (noteId) {
+    const { data, error } = await supabase
+      .from('notes')
+      .select('*')
+      .eq('id', noteId)
+      .eq('user_uuid', req.user.id) // security: must belong to current user
+      .single();
+
+    if (!error) {
+      note = data;
+    }
+  }
+
   return res.render('notes', {
-    title: 'Notes',
+    title: note ? 'Edit Note' : 'New Note',
     csrfToken: req.csrfToken(),
+    note, // <-- pass note (or null)
   });
 });
+
+// Update Note
+router.post('/:id/edit', async (req, res) => {
+  console.log('[NotesRoute] POST /notes/:id/edit start', { user: req.user?.id });
+
+  try {
+    const { id } = req.params;
+    const { title, content } = req.body;
+
+    const { error } = await supabase
+      .from('notes')
+      .update({
+        title,
+        content
+      })
+      .eq('id', id)
+      .eq('user_uuid', req.user.id); // security check
+
+    if (error) {
+      console.error('[NotesRoute] DB update error', { code: error.code, msg: error.message });
+      return res.status(500).render('error', {
+        title: 'Error',
+        message: 'Failed to update note.',
+        error: {},
+      });
+    }
+
+    console.log('[NotesRoute] DB update success');
+    res.redirect('/notes/list');
+  } catch (e) {
+    console.error('[NotesRoute] Unexpected error', { message: e?.message });
+    return res.status(500).render('error', {
+      title: 'Error',
+      message: 'Unexpected error while updating your note.',
+      error: {},
+    });
+  }
+});
+
 
 // Create Note
 router.post('/', async (req, res) => {
   console.log('[NotesRoute] POST /notes start', { user: req.user?.id });
   try {
     const { title, content } = req.body;
-
-
-    // if(!title) {
-    //   return res.render('notes', {
-    //     title: 'Notes',
-    //     content: 'Title is required.',
-    //     csrfToken: req.csrfToken(),
-    //   });
-    // }
 
     const { error } = await supabase
       .from('notes')
@@ -86,13 +141,5 @@ router.get('/list', async (req, res) => {
     });
   }
 });
-
-// const csrf = require('csurf');
-// const noteController = require('../controllers/noteController');
-
-// const csrfProtection = csrf({ cookie: false });
-
-// router.get('/', csrfProtection, noteController.getNotes);
-// router.post('/add', csrfProtection, noteController.createNote);
 
 module.exports = router;

@@ -19,6 +19,7 @@ const cookie = require('cookie');
  * Display registration form
  */
 exports.getRegister = (req, res) => {
+  console.log('[UserController] GET /users/register');
   res.render('register', {
     title: 'Register',
     csrfToken: req.csrfToken(),
@@ -30,11 +31,15 @@ exports.getRegister = (req, res) => {
  * Process registration form
  */
 exports.postRegister = async (req, res, next) => {
+  console.log('[UserController] POST /users/register start', {
+    email: req.body?.email,
+  });
   try {
     const { username, email, password } = req.body;
 
 
     if(!email || !password || !username) {
+      console.warn('[UserController] Registration missing fields', { email });
       return res.render('register', {
         title: 'Register',
         error: 'All fields are required.',
@@ -54,7 +59,9 @@ exports.postRegister = async (req, res, next) => {
     });
 
     if(error) {
-      console.error('Registration error:', error.message);
+      console.error('[UserController] Registration error', {
+        message: error.message,
+      });
       return res.render('register', {
         title: 'Register',
         error: error.message,
@@ -62,6 +69,7 @@ exports.postRegister = async (req, res, next) => {
       });
     }
 
+    console.log('[UserController] Registration success', { email });
     // Redirects after successful login
     res.redirect('/users/login');
 
@@ -73,6 +81,9 @@ exports.postRegister = async (req, res, next) => {
     // Set session
     // req.session.user = { id: user.id, username: user.username };
   } catch (error) {
+    console.error('[UserController] Registration error', {
+      message: error?.message,
+    });
     next(error);
   }
 };
@@ -82,10 +93,111 @@ exports.postRegister = async (req, res, next) => {
  * Display login form
  */
 exports.getLogin = (req, res) => {
+  console.log('[UserController] GET /users/login');
   res.render('login', {
     title: 'Login',
     csrfToken: req.csrfToken(),
   });
+};
+
+/**
+ * POST /users/login
+ * Process login form
+ */
+exports.postLogin = async (req, res, next) => {
+  console.log('[UserController] POST /users/login start', {
+    email: req.body?.email,
+  });
+  try {
+    const { email, password } = req.body;
+
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    const isProd = process.env.NODE_ENV === 'production';
+
+    if(error || !data?.session) {
+      console.warn('[UserController] Login failed', { email });
+      // Re-renders log in with error message
+      return res.status(401).render('login',{
+        title: 'Login',
+        csrfToken: req.csrfToken(),
+        error: error?.message || 'Invalid email or password.'
+      });
+    }
+
+    // Sets cookies with the tokens
+    const { access_token, refresh_token } = data.session;
+
+    res.cookie('sb-access-token', access_token, {
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: isProd,
+      path: '/',
+    });
+    res.cookie('sb-refresh-token', refresh_token, {
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: isProd,
+      path: '/',
+    });
+
+    console.log('[UserController] Login success', { email });
+
+    // Redirect to home or dashboard
+    res.redirect('/notes/list');
+  } catch (error) {
+    console.error('[UserController] Login error', { message: error?.message });
+    next(error);
+  }
+};
+
+/**
+ * POST /users/logout
+ * Logout user
+ */
+exports.postLogout = async (req, res) => {
+  console.log('[UserController] POST /users/logout');
+  try {
+    await supabase.auth.signOut();
+
+    res.clearCookie('sb-access-token', {
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: process.env.NODE_ENV === 'production',
+      path: '/',
+    });
+    res.clearCookie('sb-refresh-token', {
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: process.env.NODE_ENV === 'production',
+      path: '/',
+    });
+
+    res.setHeader('Set-Cookie', [
+      cookie.serialize('sb-access-token', '', {
+        httpOnly: true,
+        expires: new Date(0),
+        path: '/',
+      }),
+      cookie.serialize('sb-refresh-token', '', {
+        httpOnly: true,
+        expires: new Date(0),
+        path: '/',
+      }),
+    ]);
+
+    console.log('[UserController] Logout success');
+
+    res.redirect('/');
+  } catch(error) {
+    console.error('[UserController] Logout error', {
+      message: error?.message,
+    });
+    res.redirect('/');
+  }
 };
 
 exports.getProfile = (req, res) => {
@@ -156,95 +268,8 @@ exports.postChangePassword = async (req, res) => {
   }
 };
 
-/**
- * POST /users/login
- * Process login form
- */
-exports.postLogin = async (req, res, next) => {
-  try {
-    const { email, password } = req.body;
 
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
 
-    const isProd = process.env.NODE_ENV === 'production';
 
-    if(error || !data?.session) {
-      // Re-renders log in with error message
-      return res.status(401).render('login',{
-        title: 'Login',
-        csrfToken: req.csrfToken(),
-        error: error?.message || 'Invalid email or password.'
-      });
-    }
-
-    // Sets cookies with the tokens
-    const { access_token, refresh_token } = data.session;
-
-    res.cookie('sb-access-token', access_token, {
-      httpOnly: true,
-      sameSite: 'lax',
-      secure: isProd,
-      path: '/',
-    });
-    res.cookie('sb-refresh-token', refresh_token, {
-      httpOnly: true,
-      sameSite: 'lax',
-      secure: isProd,
-      path: '/',
-    });
-
-    // Set session
-    // req.session.user = { id: user.id, username: user.username };
-
-    // Redirect to home or dashboard
-    res.redirect('/notes/list');
-  } catch (error) {
-    next(error);
-  }
-};
-
-/**
- * POST /users/logout
- * Logout user
- */
-exports.postLogout = async (req, res) => {
-  try {
-    await supabase.auth.signOut();
-
-    res.clearCookie('sb-access-token', {
-      httpOnly: true,
-      sameSite: 'lax',
-      secure: process.env.NODE_ENV === 'production',
-      path: '/',
-    });
-    res.clearCookie('sb-refresh-token', {
-      httpOnly: true,
-      sameSite: 'lax',
-      secure: process.env.NODE_ENV === 'production',
-      path: '/',
-    });
-
-    res.setHeader('Set-Cookie', [
-      cookie.serialize('sb-access-token', '', {
-        httpOnly: true,
-        expires: new Date(0),
-        path: '/',
-      }),
-      cookie.serialize('sb-refresh-token', '', {
-        httpOnly: true,
-        expires: new Date(0),
-        path: '/',
-      }),
-    ]);
-
-    res.redirect('/');
-  } catch(error) {
-    console.error('Logout error:', error);
-    res.redirect('/');
-  }
-};
 
 // Add more controller methods as needed

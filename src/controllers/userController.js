@@ -14,12 +14,18 @@
 const supabase = require('../config/supabase');
 const cookie = require('cookie');
 
+// Timestamp helper
+const ts = () => `[${new Date().toISOString()}]`;
+
 /**
  * GET /users/register
  * Display registration form
+ *
+ * Input: none
+ * Output: renders register.ejs
  */
 exports.getRegister = (req, res) => {
-  console.log('[UserController] GET /users/register');
+  console.log(`${ts()} [UserController] GET /users/register`);
   res.render('register', {
     title: 'Register',
     csrfToken: req.csrfToken(),
@@ -29,9 +35,12 @@ exports.getRegister = (req, res) => {
 /**
  * POST /users/register
  * Process registration form
+ *
+ * Input: req.body { username, email, password }
+ * Output: redirect to /users/login on success, or re-render register with error
  */
 exports.postRegister = async (req, res, next) => {
-  console.log('[UserController] POST /users/register start', {
+  console.log(`${ts()} [UserController] POST /users/register start`, {
     email: req.body?.email,
   });
   try {
@@ -39,7 +48,9 @@ exports.postRegister = async (req, res, next) => {
 
 
     if(!email || !password || !username) {
-      console.warn('[UserController] Registration missing fields', { email });
+      console.warn(`${ts()} [UserController] Registration missing fields`, {
+        email,
+      });
       return res.render('register', {
         title: 'Register',
         error: 'All fields are required.',
@@ -59,7 +70,7 @@ exports.postRegister = async (req, res, next) => {
     });
 
     if(error) {
-      console.error('[UserController] Registration error', {
+      console.error(`${ts()} [UserController] Registration error`, {
         message: error.message,
       });
       return res.render('register', {
@@ -69,7 +80,7 @@ exports.postRegister = async (req, res, next) => {
       });
     }
 
-    console.log('[UserController] Registration success', { email });
+    console.log(`${ts()} [UserController] Registration success`, { email });
     // Redirects after successful login
     res.redirect('/users/login');
 
@@ -81,7 +92,7 @@ exports.postRegister = async (req, res, next) => {
     // Set session
     // req.session.user = { id: user.id, username: user.username };
   } catch (error) {
-    console.error('[UserController] Registration error', {
+    console.error(`${ts()} [UserController] Registration error`, {
       message: error?.message,
     });
     next(error);
@@ -91,9 +102,12 @@ exports.postRegister = async (req, res, next) => {
 /**
  * GET /users/login
  * Display login form
+ *
+ * Input: none
+ * Output: renders login.ejs
  */
 exports.getLogin = (req, res) => {
-  console.log('[UserController] GET /users/login');
+  console.log(`${ts()} [UserController] GET /users/login`);
   res.render('login', {
     title: 'Login',
     csrfToken: req.csrfToken(),
@@ -103,9 +117,12 @@ exports.getLogin = (req, res) => {
 /**
  * POST /users/login
  * Process login form
+ *
+ * Input: req.body { email, password }
+ * Output: redirect to /notes/list on success; 401 + login page on failure
  */
 exports.postLogin = async (req, res, next) => {
-  console.log('[UserController] POST /users/login start', {
+  console.log(`${ts()} [UserController] POST /users/login start`, {
     email: req.body?.email,
   });
   try {
@@ -119,7 +136,7 @@ exports.postLogin = async (req, res, next) => {
     const isProd = process.env.NODE_ENV === 'production';
 
     if(error || !data?.session) {
-      console.warn('[UserController] Login failed', { email });
+      console.warn(`${ts()} [UserController] Login failed`, { email });
       // Re-renders log in with error message
       return res.status(401).render('login',{
         title: 'Login',
@@ -144,12 +161,14 @@ exports.postLogin = async (req, res, next) => {
       path: '/',
     });
 
-    console.log('[UserController] Login success', { email });
+    console.log(`${ts()} [UserController] Login success`, { email });
 
     // Redirect to home or dashboard
     res.redirect('/notes/list');
   } catch (error) {
-    console.error('[UserController] Login error', { message: error?.message });
+    console.error(`${ts()} [UserController] Login error`, {
+      message: error?.message,
+    });
     next(error);
   }
 };
@@ -157,9 +176,12 @@ exports.postLogin = async (req, res, next) => {
 /**
  * POST /users/logout
  * Logout user
+ *
+ * Input: none
+ * Output: clears auth cookies, redirects to /
  */
 exports.postLogout = async (req, res) => {
-  console.log('[UserController] POST /users/logout');
+  console.log(`${ts()} [UserController] POST /users/logout`);
   try {
     await supabase.auth.signOut();
 
@@ -189,11 +211,11 @@ exports.postLogout = async (req, res) => {
       }),
     ]);
 
-    console.log('[UserController] Logout success');
+    console.log(`${ts()} [UserController] Logout success`);
 
     res.redirect('/');
   } catch(error) {
-    console.error('[UserController] Logout error', {
+    console.error(`${ts()} [UserController] Logout error`, {
       message: error?.message,
     });
     res.redirect('/');

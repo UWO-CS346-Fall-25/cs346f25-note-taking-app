@@ -30,6 +30,29 @@ router.get('/', async (req, res) => {
   });
 });
 
+// DELETE NOTE
+router.post('/:id/delete', async (req, res) => {
+  const noteId = req.params.id;
+
+  try {
+    const { error } = await supabase
+      .from('notes')
+      .delete()
+      .eq('id', noteId)
+      .eq('user_uuid', req.user.id); // safety: user can delete only their own notes
+
+    if (error) {
+      console.error('Delete Error:', error);
+      return res.status(500).send('Error deleting note');
+    }
+
+    return res.redirect('/notes/list');
+  } catch (err) {
+    console.error('Unexpected Delete Error:', err);
+    return res.status(500).send('Unexpected error deleting note');
+  }
+});
+
 
 router.post('/:id/edit', async (req, res) => {
   console.log('[NotesRoute] POST /notes/:id/edit start', { user: req.user?.id });
@@ -146,9 +169,12 @@ router.get('/list', async (req, res) => {
       count: data?.length || 0,
     });
     res.render('notes-list', {
-      title: 'Your Notes',
-      notes: data,
-    });
+    title: 'Your Notes',
+    notes: data,
+    csrfToken: req.csrfToken(),
+    user: req.user
+  });
+
   } catch (e) {
     console.error(`${ts()} [NotesRoute] Unexpected error`, { message: e?.message }); 
     return res.status(500).render('error', {
@@ -158,5 +184,22 @@ router.get('/list', async (req, res) => {
     });
   }
 });
+
+router.delete("/notes/:id", async (req, res) => {
+  const { id } = req.params;
+
+  const { error } = await supabase
+    .from("notes")
+    .delete()
+    .eq("id", id);
+
+  if (error) {
+    console.error(error);
+    return res.status(500).send("Error deleting note");
+  }
+
+  res.redirect("/notes-list");
+});
+
 
 module.exports = router;

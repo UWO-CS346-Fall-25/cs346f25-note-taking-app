@@ -20,6 +20,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Example: Interactive elements
   initInteractiveElements();
+
+  // DELETE CONFIRM
+  document.addEventListener("click", function (e) {
+    if (e.target.matches(".delete-note-button")) {
+      if (!confirm("Delete this note?")) {
+        e.preventDefault();
+      }
+    }
+  });
 });
 
 /**

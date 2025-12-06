@@ -7,6 +7,9 @@
   <link rel="icon" href="/img/webnotelogo.png">
   <title>My Notes</title>
 </head>
+
+<script src="/js/main.js" defer></script>
+
 <body>
   <header>
     <nav>
@@ -41,29 +44,23 @@
     <% } else { %>
       <ul>
         <% notes.forEach(note => { %>
-          <!-- <li>
-            <%= note.title %><br>
-            <%= note.content %><br>
-            <small><%= new Date(note.created_at) %></small>
-          </li> -->
           <li>
             <strong><%= note.title %></strong><br>
             <%= note.content %><br>
             <small><%= new Date(note.created_at).toLocaleString() %></small>
             <br>
 
-            <!-- EDIT BUTTON (loads /notes?id=NOTE_ID) -->
+            <!-- edit button -->
             <form action="/notes" method="GET" style="display:inline;">
               <input type="hidden" name="id" value="<%= note.id %>">
               <button type="submit">Edit</button>
             </form>
 
-            <!-- DELETE BUTTON -->
+            <!-- delete button -->
             <form action="/notes/<%= note.id %>/delete" method="POST" style="display:inline;">
               <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-              <button type="submit" onclick="return confirm('Delete this note?')">
-                Delete
-              </button>
+              <button type="submit" class="delete-note-button">Delete</button>
+
             </form>
 
           </li>

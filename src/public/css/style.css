@@ -200,6 +200,40 @@ main {
   padding: 2rem 0;
 }
 
+
+
+
+/* Ensure main and ul take full width */
+.list.container {
+  width: 100%;
+}
+
+.list ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  padding: 0;
+  margin: 2rem 0 0 0;
+  list-style: none;
+  width: 100%;
+}
+
+/* Each note as a card */
+.list ul li {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+
+
+
 /* Hero Section */
 .hero {
   display: flex;

@@ -37,38 +37,39 @@
       </div>
     </nav>
   </header>
+  <div class="list">
+    <main class="container">
+      <% if(notes.length === 0) { %>
+        <p>No notes yet - create one!</p>
+      <% } else { %>
+        <ul>
+          <% notes.forEach(note => { %>
+            <li>
+              <strong><%= note.title %></strong><br>
+              <%= note.content %><br>
+              <small><%= new Date(note.created_at).toLocaleString() %></small>
+              <br>
 
-  <main class="container">
-    <% if(notes.length === 0) { %>
-      <p>No notes yet - create one!</p>
-    <% } else { %>
-      <ul>
-        <% notes.forEach(note => { %>
-          <li>
-            <strong><%= note.title %></strong><br>
-            <%= note.content %><br>
-            <small><%= new Date(note.created_at).toLocaleString() %></small>
-            <br>
+              <!-- edit button -->
+              <form action="/notes" method="GET" style="display:inline;">
+                <input type="hidden" name="id" value="<%= note.id %>">
+                <button type="submit">Edit</button>
+              </form>
 
-            <!-- edit button -->
-            <form action="/notes" method="GET" style="display:inline;">
-              <input type="hidden" name="id" value="<%= note.id %>">
-              <button type="submit">Edit</button>
-            </form>
+              <!-- delete button -->
+              <form action="/notes/<%= note.id %>/delete" method="POST" style="display:inline;">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <button type="submit" class="delete-note-button" data-title='<%= JSON.stringify(note.title) %>'> Delete </button>
+              </form>
 
-            <!-- delete button -->
-            <form action="/notes/<%= note.id %>/delete" method="POST" style="display:inline;">
-              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-              <button type="submit" class="delete-note-button" data-title='<%= JSON.stringify(note.title) %>'> Delete </button>
-            </form>
+            </li>
 
-          </li>
-
-        <% }) %>
-      </ul>
-    <% } %>
-    <a href="/notes">Add New Note</a>
-  </main>
+          <% }) %>
+        </ul>
+      <% } %>
+      <a href="/notes">Add New Note</a>
+    </main>
+  </div>
 
   <footer>
     <div class="container">

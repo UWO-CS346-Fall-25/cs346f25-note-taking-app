@@ -50,11 +50,35 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
+  //fetching correct time (US Central Time)
+  document.querySelectorAll('.note-time').forEach(el => {
+    const utcString = el.dataset.utc;
+    if (!utcString) return;
 
+    const date = new Date(utcString); // parse UTC
 
+    // Get the current UTC hours
+    const utcHours = date.getUTCHours();
 
+    // Only subtract 6 if it keeps us on the same day
+    if (utcHours >= 6) {
+      date.setHours(date.getHours() - 6); // Central Time adjustment
+    } else {
+      // if less than 6, wrap around to previous day correctly
+      date.setHours(date.getHours() - 6); // JS handles negative hours automatically
+    }
 
+    const options = {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true
+    };
 
+    el.textContent = date.toLocaleString('en-US', options);
+  });
 
 });
 

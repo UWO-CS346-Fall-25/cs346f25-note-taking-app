@@ -43,30 +43,47 @@
         <p>No notes yet - create one!</p>
       <% } else { %>
         <ul>
-          <% notes.forEach(note => { %>
+          <% notes.forEach(note => { 
+              // Set max lengths
+              const maxTitleLength = 30;
+              const maxContentLength = 100;
+
+              // Trim title
+              let displayTitle = note.title;
+              if (displayTitle.length > maxTitleLength) {
+                displayTitle = displayTitle.substring(0, maxTitleLength) + '…';
+              }
+
+              // Trim content
+              let displayContent = note.content;
+              if (displayContent.length > maxContentLength) {
+                displayContent = displayContent.substring(0, maxContentLength) + '…';
+              }
+          %>
             <li>
-              <strong><%= note.title %></strong><br>
-              <%= note.content %><br>
-              <small><%= new Date(note.created_at).toLocaleString() %></small>
+              <strong><%= displayTitle %></strong><br>
+              <%= displayContent %><br>
+              <small class="note-time" data-utc="<%= note.created_at %>"></small>
+
               <br>
+
               <div class="button-group">
                 <!-- edit button -->
                 <form action="/notes" method="GET" style="display:inline;">
                   <input type="hidden" name="id" value="<%= note.id %>">
-                  <button type="submit">Edit</button>
+                  <button type="submit">Edit/View</button>
                 </form>
 
                 <!-- delete button -->
                 <form action="/notes/<%= note.id %>/delete" method="POST" style="display:inline;">
                   <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                  <button type="submit" class="delete-note-button" data-title='<%= JSON.stringify(note.title) %>'> Delete </button>
+                  <button type="submit" class="delete-note-button" data-title='<%= JSON.stringify(note.title) %>'>Delete</button>
                 </form>
               </div>
-
             </li>
-
           <% }) %>
         </ul>
+
       <% } %>
       <a href="/notes">Add New Note</a>
     </main>

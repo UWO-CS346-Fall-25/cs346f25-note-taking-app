@@ -18,9 +18,6 @@
 :root {
   --primary-color: #007bff; /* background for welcome message */
   --secondary-color: #6c757d; /* border color */
-  --danger-color: #dc3545;
-  --light-color: #f8f9fa;
-  --dark-color: #343a40;
   --off-white: #f3f3f3; /*the main background color */
   --pure-white: #ffffff; /* the bright white used in header and footer */
   --font-family:
@@ -61,7 +58,7 @@ body::before {
   background-size: cover;     /* cover entire viewport */
   background-position: center;
   background-repeat: no-repeat;
-  opacity: 0.2;               /* image opacity */
+  opacity: 0.3;               /* image opacity */
   z-index: -1;                /* behind all content */
 }
 
@@ -127,7 +124,7 @@ header {
   color: #333;
   border-bottom: 1px solid #e5e5e5;
   box-shadow: none;
-  padding: 25px 0px;
+  padding: 10px 0px;
 }
 
 header .container {
@@ -190,7 +187,8 @@ nav .container {
 }
 
 .nav-links a {
-  color: #333;
+  color: black;
+  padding: 0.5rem 0rem;     
 }
 
 .nav-links button {
@@ -238,16 +236,17 @@ main {
 
 /* Each note as a card */
 .list ul li {
-  background-color: #fff; /* white background */
+  background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 1rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* pins buttons to bottom */
-  height: 100%;
-  box-shadow: none; 
-  transition: none; 
+  max-height: 20em;
+  word-wrap: break-word;     /* wrap long words */
+  overflow-wrap: break-word; /* older browsers */
+  hyphens: auto;             /* adds hyphens if needed */
 }
 
 /* Note title */
@@ -697,11 +696,11 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 4rem 1rem;
-  min-height: 100vh;
+  min-height: 90vh;
   width: 100%;
   box-sizing: border-box;
-  margin-top: 2rem;
+  margin-top: 0;
+  padding: 0;
 }
 
 .note-editor-container {

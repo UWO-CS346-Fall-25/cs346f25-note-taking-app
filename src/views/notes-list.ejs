@@ -55,7 +55,28 @@
             <li>
               <div class="note-top">
                 <strong><%= displayTitle %></strong><br>
-                <%= displayContent %>
+                <div class="note-content">
+                  <%- (displayContent == null ? '' :
+                  String(displayContent)
+                    //escape HTML
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;')
+                    .replace(/'/g, '&#39;')
+
+                    //turn lines that are only dashes (--- or longer) into a visual rule
+                    //keep one newline after the <hr> so spacing looks natural.
+                    .replace(/^\s*-{3,}\s*$/gm, '<hr>')
+
+                    //collapse runs of blank lines (or lines with only whitespace) to a single blank line
+                    //this handles \n, \r\n and lines that contain spaces or tabs
+                    .replace(/(\r?\n\s*){2,}/g, '\n\n')
+
+                    //convert remaining newlines to <br>
+                    .replace(/\r?\n/g, '<br>')
+                  ) %>
+                </div>
               </div>
               <div class="note-bottom">
                 <small class="note-time" data-utc="<%= note.created_at %>"></small>

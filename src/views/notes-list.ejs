@@ -59,8 +59,7 @@
             <!-- delete button -->
             <form action="/notes/<%= note.id %>/delete" method="POST" style="display:inline;">
               <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-              <button type="submit" class="delete-note-button">Delete</button>
-
+              <button type="submit" class="delete-note-button" data-title='<%= JSON.stringify(note.title) %>'> Delete </button>
             </form>
 
           </li>

@@ -21,14 +21,41 @@ document.addEventListener('DOMContentLoaded', function () {
   // Example: Interactive elements
   initInteractiveElements();
 
-  // DELETE CONFIRM
+  //deletion button logic
   document.addEventListener("click", function (e) {
     if (e.target.matches(".delete-note-button")) {
-      if (!confirm("Delete this note?")) {
+      let title = e.target.dataset.title || "this note";
+
+      //trim long titles
+      const maxLength = 20;
+      let tooLong = false;
+      if (title.length > maxLength) {
+        title = title.substring(0, maxLength) + '…';
+        tooLong = true;
+      }
+
+      let message;
+      if (tooLong) {
+        message = `Are you sure you want to delete ${title}"? This note will NOT be recoverable after deletion!`;
+      } 
+
+      if (!tooLong){
+        message = `Are you sure you want to delete ${title}? This note will NOT be recoverable after deletion!`;
+      }
+
+      //show confirm popup
+      if (!confirm(message)) {
         e.preventDefault();
       }
     }
   });
+
+
+
+
+
+
+
 });
 
 /**

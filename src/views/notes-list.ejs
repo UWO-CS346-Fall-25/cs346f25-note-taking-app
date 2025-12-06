@@ -44,46 +44,39 @@
       <% } else { %>
         <ul>
           <% notes.forEach(note => { 
-              // Set max lengths
               const maxTitleLength = 30;
               const maxContentLength = 100;
-
-              // Trim title
+              //trimming title
               let displayTitle = note.title;
-              if (displayTitle.length > maxTitleLength) {
-                displayTitle = displayTitle.substring(0, maxTitleLength) + '…';
-              }
-
-              // Trim content
+              if (displayTitle.length > maxTitleLength) {displayTitle = displayTitle.substring(0, maxTitleLength) + '…';}
+              //trimming content
               let displayContent = note.content;
-              if (displayContent.length > maxContentLength) {
-                displayContent = displayContent.substring(0, maxContentLength) + '…';
-              }
-          %>
+              if (displayContent.length > maxContentLength) {displayContent = displayContent.substring(0, maxContentLength) + '…';}%>
             <li>
-              <strong><%= displayTitle %></strong><br>
-              <%= displayContent %><br>
-              <small class="note-time" data-utc="<%= note.created_at %>"></small>
+              <div class="note-top">
+                <strong><%= displayTitle %></strong><br>
+                <%= displayContent %>
+              </div>
+              <div class="note-bottom">
+                <small class="note-time" data-utc="<%= note.created_at %>"></small>
 
-              <br>
+                <div class="button-group">
+                  <!-- edit button -->
+                  <form action="/notes" method="GET" style="display:inline;">
+                    <input type="hidden" name="id" value="<%= note.id %>">
+                    <button type="submit">Edit/View</button>
+                  </form>
 
-              <div class="button-group">
-                <!-- edit button -->
-                <form action="/notes" method="GET" style="display:inline;">
-                  <input type="hidden" name="id" value="<%= note.id %>">
-                  <button type="submit">Edit/View</button>
-                </form>
-
-                <!-- delete button -->
-                <form action="/notes/<%= note.id %>/delete" method="POST" style="display:inline;">
-                  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                  <button type="submit" class="delete-note-button" data-title='<%= JSON.stringify(note.title) %>'>Delete</button>
-                </form>
+                  <!-- delete button -->
+                  <form action="/notes/<%= note.id %>/delete" method="POST" style="display:inline;">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <button type="submit" class="delete-note-button" data-title="<%= JSON.stringify(note.title) %>">Delete</button>
+                  </form>
+                </div>
               </div>
             </li>
           <% }) %>
         </ul>
-
       <% } %>
       <a href="/notes">Add New Note</a>
     </main>

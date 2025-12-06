@@ -37,6 +37,7 @@
   box-sizing: border-box;
 }
 
+/* Keep existing body styles */
 body {
   display: flex;
   flex-direction: column;
@@ -44,8 +45,27 @@ body {
   font-family: var(--font-family);
   line-height: 1.6;
   color: var(--dark-color);
-  background-color: #f9f1fb;
+  position: relative;  /* needed for the overlay */
+  background-color: var(--off-white); /* fallback color if image doesn't load */
 }
+
+/* Full-page semi-transparent background image */
+body::before {
+  content: "";
+  position: fixed;            /* stays in place while scrolling */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/img/pagebackground.png');
+  background-size: cover;     /* cover entire viewport */
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.2;               /* image opacity */
+  z-index: -1;                /* behind all content */
+}
+
+
 
 html, body {
   height: 100%;
@@ -200,14 +220,12 @@ main {
   padding: 2rem 0;
 }
 
-
-
-
-/* Ensure main and ul take full width */
+/* Notes grid container */
 .list.container {
   width: 100%;
 }
 
+/* Notes grid */
 .list ul {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -220,19 +238,65 @@ main {
 
 /* Each note as a card */
 .list ul li {
-  background-color: #fff;
+  background-color: #fff; /* white background */
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 1rem;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
   display: flex;
   flex-direction: column;
+  justify-content: space-between; /* pins buttons to bottom */
+  height: 100%;
+  box-shadow: none; 
+  transition: none; 
 }
 
+/* Note title */
+.list ul li strong {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
 
+/* Note content grows to fill space */
+.list ul li small,
+.list ul li p {
+  color: #555;
+  flex-grow: 1;
+}
 
+/* Buttons container centered at bottom */
+.list ul li .button-group {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center; /* center buttons horizontally */
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
 
+/* Buttons styling (grey theme) */
+.list ul li button {
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  background-color: #ccc; /* grey background */
+  color: #333; /* dark text */
+  transition: background 0.2s;
+}
 
+.list ul li button:hover {
+  background-color: #999; /* darker grey on hover */
+}
+
+.list ul li .delete-note-button {
+  background-color: #ccc; /* grey */
+  color: #333;
+}
+
+.list ul li .delete-note-button:hover {
+  background-color: #999;
+}
 
 /* Hero Section */
 .hero {
@@ -630,7 +694,6 @@ footer {
 }
 
 .notes-page {
-  background-color: #f9f1fb;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -690,7 +753,7 @@ footer {
 
 .note-editor-form textarea {
   width: 100%;
-  height: 400px;
+  height: 200px;
   padding: 1rem;
   font-size: 1rem;
   line-height: 1.6;

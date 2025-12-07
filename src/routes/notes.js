@@ -176,7 +176,7 @@ router.get('/list', async (req, res) => {
   });
 
   } catch (e) {
-    console.error(`${ts()} [NotesRoute] Unexpected error`, { message: e?.message }); 
+    console.error(`${ts()} [NotesRoute] Unexpected error`, { message: e?.message });
     return res.status(500).render('error', {
       title: 'Error',
       message: 'Unexpected error while fetching notes.',
@@ -198,7 +198,7 @@ router.delete("/notes/:id", async (req, res) => {
     return res.status(500).send("Error deleting note");
   }
 
-  res.redirect("/notes-list");
+  res.redirect("/notes/list");
 });
 
 

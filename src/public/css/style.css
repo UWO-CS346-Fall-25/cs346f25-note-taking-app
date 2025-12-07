@@ -124,29 +124,29 @@ header .container {
 }
 
 header .container .logo {
-  flex: 1;               
-  display: flex;          
+  flex: 1;
+  display: flex;
   justify-content: flex-start;
 }
 
 header .container .logo img {
   display: block;
-  width: 80px;           
+  width: 80px;
   height: auto;
 }
 
 header .container h1 {
-  flex: 1;                
-  text-align: center;     
+  flex: 1;
+  text-align: center;
   margin: 0;
   display: flex;
   justify-content: center;
 }
 
 header .container .nav-links {
-  flex: 1;               
+  flex: 1;
   display: flex;
-  justify-content: flex-end; 
+  justify-content: flex-end;
   gap: 20px;
   list-style: none;
   /* background-color: blueviolet; */
@@ -167,7 +167,7 @@ header .nav-links li a {
 
 .nav-links a {
   color: black;  /* text color */
-  padding: 0.5rem 0rem;     
+  padding: 0.5rem 0rem;
 }
 
 .nav-links a:hover {
@@ -880,6 +880,74 @@ footer {
 
 /* Make button width fit nicely */
 #registerForm .register-btn {
-  width: 75%; 
+  width: 75%;
   text-align: center;
+}
+
+/* Profile page layout */
+.profile-page main.container {
+  max-width: 720px;
+  margin: 2rem auto 3rem;
+}
+
+.profile-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.profile-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.profile-name {
+  margin: 0;
+}
+
+.profile-tagline {
+  margin: 0.25rem 0 0;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.profile-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.profile-field-label {
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #888;
+  margin-bottom: 0.15rem;
+}
+
+.profile-field-value {
+  font-weight: 600;
+  color: var(--dark-color);
+}
+
+.profile-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
 }

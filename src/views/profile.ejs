@@ -35,18 +35,34 @@
     </nav>
   </header>
 
-  <main class="container">
+    <main class="container">
     <h1>Your Profile</h1>
-    <div class="card">
-      <p><strong>Name:</strong> <%= user && user.name %></p>
-      <p><strong>Email:</strong> <%= user && user.email %></p>
-      <div class="actions" style="display:flex; gap:.5rem; margin-top:1rem;">
+    <div class="card profile-card">
+      <div class="profile-header">
+        <div class="profile-avatar">
+          <span><%= (user && user.name) ? user.name.charAt(0).toUpperCase() : 'U' %></span>
+        </div>
+        <div>
+          <h2 class="profile-name"><%= user && user.name %></h2>
+          <p class="profile-tagline">Manage your account details and get back to your notes.</p>
+        </div>
+      </div>
+
+      <div class="profile-details">
+        <div class="profile-field">
+          <span class="profile-field-label">Email</span>
+          <span class="profile-field-value"><%= user && user.email %></span>
+        </div>
+      </div>
+
+      <div class="profile-actions">
         <a class="btn" href="/notes/list">My Notes</a>
-        <a class="btn btn-secondary" href="/notes">New Note</a>
+        <a class="btn" href="/notes">New Note</a>
         <a class="btn-logout" href="/users/logout">Logout</a>
       </div>
     </div>
   </main>
+
 
   <footer>
     <div class="container">

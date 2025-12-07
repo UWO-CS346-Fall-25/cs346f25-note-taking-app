@@ -1,17 +1,17 @@
-# CS346 Semester Project Template
 
-A teaching template for building secure web applications with Node.js, Express, EJS, and PostgreSQL.
+## Project Overview
 
-## Features
+- Purpose: The purpose of WebNote is to provide a simple and intuitive website that allows users to make and edit notes online, free of charge, and with no ads.
+- Features: Users can add many notes that are marked with date and time, and are sorted by date created. These notes can be viewed/edited or deleted at will.
+- The App's Abilities: Simply create an account and login, and create any notes that will then be available online at any time.
 
-- 🚀 **Node.js 20** + **Express 4** - Modern JavaScript backend
-- 🎨 **EJS** - Server-side templating
-- 🗄️ **PostgreSQL** - Reliable relational database
-- 🔒 **Security First** - Helmet, CSRF protection, secure sessions
-- 📝 **Clean Code** - ESLint, Prettier, best practices
-- 🎓 **Educational** - Well-documented, instructional code
+## Technical Architecture
 
-## Quick Start
+- MVC: Model View Controller is a software architectural pattern consisting of user interfaces that interact with each other, dividing the related program logic into three interconnected elements (the elements being model, view, and controller).
+- How WebNote uses it: The model is essentially the data structure of the app, the view is the web pages holding the HTML in this context, and the controller is used in routing, as in navigation between screens.
+- Requests will go through the routes held in variables passed to the controller, and the view is loaded with the variables loaded to show the correct user's information.
+
+## Local Setup Instructions
 
 1. **Clone the repository**
    ```bash
@@ -55,6 +55,20 @@ A teaching template for building secure web applications with Node.js, Express, 
    ```
    http://localhost:3000
    ```
+
+## Error Handling Section
+
+- The main types of errors the app expects are authentication errors or overflow errors. The csrf tokens are used everywhere in the code to identify each individual user, and more importantly keep track of which users have which notes shown to them. The errors are essentially handled by if the user is logged in, the csrf token is passed to all pages to prevent errors, but there are try/catch blocks in place to prevent issues anyways. 
+- The overflow errors occur when a user enters too much text into a note, as there is a limit to the amount of text they can hold. They are handled by simply stating the error with a popup and discarding the note.
+
+## Features
+
+- 🚀 **Node.js 20** + **Express 4** - Modern JavaScript backend
+- 🎨 **EJS** - Server-side templating
+- 🗄️ **PostgreSQL** - Reliable relational database
+- 🔒 **Security First** - Helmet, CSRF protection, secure sessions
+- 📝 **Clean Code** - ESLint, Prettier, best practices
+- 🎓 **Educational** - Well-documented, instructional code
 
 ## Project Structure
 
@@ -119,26 +133,6 @@ Comprehensive documentation is available in the `docs/` folder:
 - **Security**: Helmet, express-session, csurf
 - **Development**: ESLint, Prettier, Nodemon
 
-## Learning Resources
-
-- [Express.js Documentation](https://expressjs.com/)
-- [EJS Documentation](https://ejs.co/)
-- [PostgreSQL Documentation](https://www.postgresql.org/docs/)
-- [Node.js Documentation](https://nodejs.org/docs/)
-- [OWASP Security Guide](https://owasp.org/)
-
-## Contributing
-
-This is a teaching template. Feel free to:
-- Report issues
-- Suggest improvements
-- Submit pull requests
-- Use it for your own projects
-
-## License
-
-ISC
-
 ## WEEK 7 UPDATES
 
 - about.ejs - ![About Page](Screenshot_2025-10-18_152805.png)
@@ -199,3 +193,17 @@ ISC
 - Security: No API key required
 - ![Inspiration Page](src/public/img/inspire.png)
 - Also implemented a few UI readability changes.
+
+## WEEK 14 UPDATES 
+
+- Most pages have been reworked with different color schemes, a new background, display changes, as well as various quality of life improvements such as eliminating the need to scroll down on most pages.
+
+- The random old blue colors scattered throughout the app are gone and replaced with striped gray or black designs to stay consistent and add a little juxtaposition.
+
+- Logging is now done in the console when loading many of the pages, such as login and register, as well as the ZenQuotes API Inspiration page.
+
+- Comments have been added to the controllers to better explain certain code. 
+
+- Comments in the stylesheet have been added to better explain some more non-trivial rulesets.
+
+- Organized a bit of code, especially in the stylesheet where duplicate code was still hiding in spots. 

@@ -20,6 +20,66 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Example: Interactive elements
   initInteractiveElements();
+
+  //deletion button logic
+  document.addEventListener("click", function (e) {
+    if (e.target.matches(".delete-note-button")) {
+      let title = e.target.dataset.title || "this note";
+
+      //trim long titles
+      const maxLength = 20;
+      let tooLong = false;
+      if (title.length > maxLength) {
+        title = title.substring(0, maxLength) + '…';
+        tooLong = true;
+      }
+
+      let message;
+      if (tooLong) {
+        message = `Are you sure you want to delete ${title}"? This note will NOT be recoverable after deletion!`;
+      } 
+
+      if (!tooLong){
+        message = `Are you sure you want to delete ${title}? This note will NOT be recoverable after deletion!`;
+      }
+
+      //show confirm popup
+      if (!confirm(message)) {
+        e.preventDefault();
+      }
+    }
+  });
+
+  //fetching correct time (US Central Time)
+  document.querySelectorAll('.note-time').forEach(el => {
+    const utcString = el.dataset.utc;
+    if (!utcString) return;
+
+    const date = new Date(utcString); // parse UTC
+
+    // Get the current UTC hours
+    const utcHours = date.getUTCHours();
+
+    // Only subtract 6 if it keeps us on the same day
+    if (utcHours >= 6) {
+      date.setHours(date.getHours() - 6); // Central Time adjustment
+    } else {
+      // if less than 6, wrap around to previous day correctly
+      date.setHours(date.getHours() - 6); // JS handles negative hours automatically
+    }
+
+    const options = {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true
+    };
+
+    el.textContent = date.toLocaleString('en-US', options);
+  });
+
 });
 
 /**

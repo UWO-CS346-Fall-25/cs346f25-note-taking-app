@@ -13,28 +13,26 @@
   <link rel="stylesheet" href="/css/style.css">
   <link rel="icon" href="/img/webnotelogo.png">
 </head>
-<body class="home-page">
+<body>
   <header>
     <nav>
       <div class="container">
         <a href="/" class="logo">
           <img src="/img/webnotelogo.png" alt="WebNote logo" width="15%">
         </a>
-        WebNote
-        <ul class="nav-links">
+        <h1>WebNote</h1>
+        <ul class="nav-links"> <!-- these 3 links always show up -->
           <li><a href="/">Home</a></li>
           <li><a href="/users/about">About</a></li>
           <li><a href="/api/inspire">Inspiration</a></li>
-          <% if (user) { %>
-            <li><span>Welcome, <%= user.name %></span></li>
+
+          <% if (user) { %> <!-- these only show if user is logged in -->
             <li><a href="/notes">Notes</a></li>
             <li><a href="/notes/list">My Notes</a></li>
-            <li>
-              <form action="/users/logout" method="POST" style="display:inline;">
-                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                <button type="submit" class="btn-link">Logout</button>
-              </form> -->
-          <% } else { %>
+            <li><a href="/users/profile">Profile</a></li>
+            <li><a href="/users/logout">Logout</a></li>
+
+          <% } else { %> <!-- these only show if user is NOT logged in -->
             <li><a href="/users/login">Login</a></li>
             <li><a href="/users/register">Register</a></li>
           <% } %>
@@ -46,12 +44,13 @@
   <main class="container">
     <section class="hero">
       <div class="hero-text">
+        <% if (user) { %>
+          <li class="welcome">Welcome, <%= user.name %>!</li>
+        <% } %>
         <h1>The online note-taking app for your ideas!</h1>
         <p>Capture and organize your notes in this web application.</p>
-        <!-- this link will go to register page -->
         <a href="/users/register">Get Started!</a>
       </div>
-      <!-- image goes here -->
       <div class="hero-image">
         <div class="note-preview">
           <div class="sidebar">

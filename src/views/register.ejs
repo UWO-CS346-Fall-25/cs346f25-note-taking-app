@@ -15,19 +15,19 @@
         <a href="/" class="logo">
           <img src="/img/webnotelogo.png" alt="WebNote logo" width="15%">
         </a>
-        <ul class="nav-links">
+        <h1>Register New User</h1>
+        <ul class="nav-links"> <!-- these 3 links always show up -->
           <li><a href="/">Home</a></li>
           <li><a href="/users/about">About</a></li>
           <li><a href="/api/inspire">Inspiration</a></li>
-          <% if (user) { %>
+
+          <% if (user) { %> <!-- these only show if user is logged in -->
+            <li><a href="/notes">Notes</a></li>
+            <li><a href="/notes/list">My Notes</a></li>
             <li><a href="/users/profile">Profile</a></li>
-            <li>
-              <form action="/users/logout" method="POST" style="display: inline;">
-                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                <button type="submit" class="btn-link">Logout</button>
-              </form>
-            </li>
-          <% } else { %>
+            <li><a href="/users/logout">Logout</a></li>
+
+          <% } else { %> <!-- these only show if user is NOT logged in -->
             <li><a href="/users/login">Login</a></li>
             <li><a href="/users/register">Register</a></li>
           <% } %>
@@ -37,12 +37,13 @@
   </header>
 
   <main class="authentication-container">
-    <h1 class="app-title">WebNote</h1>
-
+    <!-- <h1 class="app-title">WebNote</h1> -->
     <div class="authentication-card">
       <h2>Register</h2>
       <form id="registerForm" action="/users/register" method="POST">
-        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+      <div class="form-grid">
         <div class="form-group">
           <label>Username</label>
           <input type="text" name="username" required minlength="8">
@@ -58,19 +59,20 @@
           <input type="password" name="password" required minlength="6">
         </div>
 
-        <div class="accept-terms">
+        <div class="form-group accept-terms">
           <input type="checkbox" id="terms" required>
           <label for="terms">Accept Terms</label>
         </div>
+      </div>
 
+      <div class="form-actions">
         <button type="submit" class="register-btn">Register</button>
-      </form>
+        <p class="authentication-footer">
+          Already have an account? <a href="/users/login">Log In</a>
+        </p>
+      </div>
+    </form>
 
-      <p class="authentication-footer">
-        Already have an account?
-        <a href="/users/login">Log In</a>
-      </p>
-    </div>
   </main>
 
 

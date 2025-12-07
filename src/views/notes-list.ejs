@@ -7,6 +7,9 @@
   <link rel="icon" href="/img/webnotelogo.png">
   <title>My Notes</title>
 </head>
+
+<script src="/js/main.js" defer></script>
+
 <body>
   <header>
     <nav>
@@ -14,15 +17,19 @@
         <a href="/" class="logo">
           <img src="/img/webnotelogo.png" alt="WebNote logo" width="15%">
         </a>
-        <h1>Your Saved Notes</h1>
-        <ul class="nav-links">
+        <h1>Your Notes</h1>
+        <ul class="nav-links"> <!-- these 3 links always show up -->
           <li><a href="/">Home</a></li>
           <li><a href="/users/about">About</a></li>
           <li><a href="/api/inspire">Inspiration</a></li>
-          <% if (user) { %>
+
+          <% if (user) { %> <!-- these only show if user is logged in -->
+            <li><a href="/notes">Notes</a></li>
+            <li><a href="/notes/list">My Notes</a></li>
             <li><a href="/users/profile">Profile</a></li>
-            <!-- <li><a href="/users/logout">Logout</a></li> -->
-          <% } else { %>
+            <li><a href="/users/logout">Logout</a></li>
+
+          <% } else { %> <!-- these only show if user is NOT logged in -->
             <li><a href="/users/login">Login</a></li>
             <li><a href="/users/register">Register</a></li>
           <% } %>
@@ -30,23 +37,72 @@
       </div>
     </nav>
   </header>
+  <div class="list">
+    <main class="container">
+      <% if(notes.length === 0) { %>
+        <p>No notes yet - create one!</p>
+      <% } else { %>
+        <ul>
+          <% notes.forEach(note => { 
+              const maxTitleLength = 30;
+              const maxContentLength = 100;
+              //trimming title
+              let displayTitle = note.title;
+              if (displayTitle.length > maxTitleLength) {displayTitle = displayTitle.substring(0, maxTitleLength) + '…';}
+              //trimming content
+              let displayContent = note.content;
+              if (displayContent.length > maxContentLength) {displayContent = displayContent.substring(0, maxContentLength) + '…';}%>
+            <li>
+              <div class="note-top">
+                <strong><%= displayTitle %></strong><br>
+                <div class="note-content">
+                  <%- (displayContent == null ? '' :
+                  String(displayContent)
+                    //escape HTML
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;')
+                    .replace(/'/g, '&#39;')
 
-  <main class="container">
-    <% if(notes.length === 0) { %>
-      <p>No notes yet - create one!</p>
-    <% } else { %>
-      <ul>
-        <% notes.forEach(note => { %>
-          <li>
-            <%= note.title %><br>
-            <%= note.content %><br>
-            <small><%= new Date(note.created_at) %></small>
-          </li>
-        <% }) %>
-      </ul>
-    <% } %>
-    <a href="/notes">Add New Note</a>
-  </main>
+                    //turn lines that are only dashes (--- or longer) into a visual rule
+                    //keep one newline after the <hr> so spacing looks natural.
+                    .replace(/^\s*-{3,}\s*$/gm, '<hr>')
+
+                    //collapse runs of blank lines (or lines with only whitespace) to a single blank line
+                    //this handles \n, \r\n and lines that contain spaces or tabs
+                    .replace(/(\r?\n\s*){2,}/g, '\n\n')
+
+                    //convert remaining newlines to <br>
+                    .replace(/\r?\n/g, '<br>')
+                  ) %>
+                </div>
+              </div>
+              <div class="note-bottom">
+                <small class="note-time" data-utc="<%= note.created_at %>"></small>
+
+                <div class="button-group">
+                  <!-- edit button -->
+                  <form action="/notes" method="GET" style="display:inline;">
+                    <input type="hidden" name="id" value="<%= note.id %>">
+                    <button type="submit">Edit/View</button>
+                  </form>
+
+                  <!-- delete button -->
+                  <form action="/notes/<%= note.id %>/delete" method="POST" style="display:inline;">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <button type="submit" class="delete-note-button" data-title="<%= JSON.stringify(note.title) %>">Delete</button>
+                  </form>
+                </div>
+              </div>
+            </li>
+          <% }) %>
+        </ul>
+      <% } %>
+      <a href="/notes">Add New Note</a>
+    </main>
+  </div>
+
   <footer>
     <div class="container">
       <p>&copy; 2025 CS346 Project. All rights reserved.</p>

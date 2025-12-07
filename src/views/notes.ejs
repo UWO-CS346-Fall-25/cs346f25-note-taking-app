@@ -39,7 +39,7 @@
     <div class="note-editor-container">
       <div class="note-editor-header">
         <h1><%= note ? "Edit Note" : "New Note" %></h1>
-        <a href="/" class="btn-secondary">Back</a>
+        <a href="/notes/list" class="btn-secondary">Back</a>
       </div>
 
       <form class="note-editor-form" action="<%= note ? '/notes/' + note.id + '/edit' : '/notes' %>" method="POST">

@@ -43,7 +43,7 @@
         <p>No notes yet - create one!</p>
       <% } else { %>
         <ul>
-          <% notes.forEach(note => { 
+          <% notes.forEach(note => {
               const maxTitleLength = 30;
               const maxContentLength = 100;
               //trimming title
@@ -99,7 +99,9 @@
           <% }) %>
         </ul>
       <% } %>
-      <a href="/notes">Add New Note</a>
+      <form action="/notes" method="GET" class="add-note-form">
+        <button type="submit" class="btn">Add New Note</button>
+      </form>
     </main>
   </div>
 

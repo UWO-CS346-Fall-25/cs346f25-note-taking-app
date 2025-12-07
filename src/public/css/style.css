@@ -16,7 +16,7 @@
 
 /* CSS Variables */
 :root {
-  --primary-color: #007bff; /* background for welcome message */
+  --primary-color: rgb(57, 57, 57); /* welcome message and some buttons */
   --secondary-color: #6c757d; /* border color */
   --off-white: #f3f3f3; /*the main background color */
   --pure-white: #ffffff; /* the bright white used in header and footer */
@@ -62,14 +62,6 @@ body::before {
   z-index: -1;                /* behind all content */
 }
 
-
-
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
 .welcome {
   display: flex;
   font-style: italic;
@@ -96,19 +88,18 @@ a:hover {
 
 .about-container {
   max-width: 1200px;
-  margin: 4rem auto;
-  padding: 0px 0px 60px 0px;
+  margin: 3rem auto;
   display: flex;
   flex-direction: column;
   text-align: center;
   align-items: center;
-  margin-top: 4rem;
-  margin-bottom: 4rem;
+  margin: 0rem auto 0.5rem;
+  padding: 2rem;
 }
 
 .about-box {
   text-align: justify;
-  padding: 0px 150px 20px 150px;
+  padding: 0px 150px 0px 150px;
 }
 
 .about-body {
@@ -177,6 +168,10 @@ header .nav-links li a {
 .nav-links a {
   color: black;  /* text color */
   padding: 0.5rem 0rem;     
+}
+
+.nav-links a:hover {
+  color: darkgray;
 }
 
 .nav-links button {
@@ -284,7 +279,7 @@ main {
 .list ul li .button-group {
   margin-top: 1rem;
   display: flex;
-  justify-content: center; /* center buttons horizontally */
+  justify-content: center; /* center horizontally */
   gap: 0.5rem;
   flex-wrap: wrap;
 }
@@ -353,7 +348,7 @@ main {
 }
 
 .hero-text a:hover {
-  background-color: #0056b3;
+  background-color: black;
 }
 
 .hero-image {
@@ -406,7 +401,7 @@ main {
 }
 
 .sidebar li.active {
-  background-color: #e8f0ff;
+  /* background-color: #3a3a3a;  */
   color: var(--primary-color);
   font-weight: 600;
 }
@@ -535,8 +530,8 @@ main {
 }
 
 .btn:hover {
-  background-color: #0056b3;
-  text-decoration: none;
+  background-color: darkgray;
+  color: black;
 }
 
 /* Forms */
@@ -560,10 +555,9 @@ main {
   font-family: var(--font-family);
 }
 
-/* Footer */
 footer {
   background-color: var(--pure-white);
-  color: #666;
+  color: black;
   font-size: 0.9rem;
   border-top: 1px solid #e5e5e5;
   padding: 1rem 0;
@@ -605,8 +599,8 @@ footer {
 .authentication-container {
   text-align: center;
   width: 100%;
-  max-width: 420px;
-  margin: 5rem auto 3rem;
+  max-width: 1000px;
+  margin: 0rem auto 0.5rem;
   padding: 2rem;
 }
 
@@ -624,47 +618,12 @@ footer {
   color: var(--dark-color);
 }
 
-.authentication-card .form-group {
-  margin-bottom: 1.2rem;
-}
-
-.authentication-card label {
-  display: block;
-  font-weight: 600;
-  margin-bottom: 0.4rem;
-  color: #333;
-}
-
-.authentication-card input {
-  width: 100%;
-  padding: 0.6rem 0.8rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 1rem;
-  font-family: var(--font-family);
-}
-
-.authentication-card input:focus {
-  border-color: var(--primary-color);
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
-}
-
-.authentication-card {
-  background: #fff;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-  text-align: left;
-  margin-top: 1rem;
-}
-
 .register-btn {
   display: block;
   width: 100%;
   padding: 0.8rem;
   background-color: var(--primary-color);
-  color: #fff;
+  color: var(--pure-white);
   border: none;
   border-radius: 6px;
   font-size: 1rem;
@@ -675,23 +634,25 @@ footer {
 }
 
 .register-btn:hover {
-  background-color: #0056b3;
+  background-color: darkgray;
+  color: black;
 }
 
 .authentication-footer {
   text-align: center;
   margin-top: 1.5rem;
   font-size: 0.95rem;
-  color: #666;
+  color: black;
 }
 
 .authentication-footer a {
   color: var(--primary-color);
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 .authentication-footer a:hover {
   text-decoration: underline;
+  color: black
 }
 
 /* LOG IN PAGE */
@@ -706,7 +667,8 @@ footer {
 }
 
 .login-page .register-btn:hover {
-  background-color: #0056b3;
+  background-color: darkgray;
+  color: black
 }
 
 .notes-page {
@@ -815,7 +777,8 @@ footer {
 }
 
 .btn-secondary:hover {
-  background-color: #e0e0e0;
+  background-color: black;
+  color: var(--pure-white);
 }
 
 /* ACCEPT TERMS */
@@ -834,9 +797,11 @@ footer {
 
 .accept-terms input[type='checkbox'] {
   flex-shrink: 0;
-  transform: scale(1.2);
-  accent-color: #007bff;
+  transform: scale(1.5);
+  accent-color: black;
   cursor: pointer;
+  max-width: 20px;
+  margin-left: 60px;
 }
 
 .accept-terms label {
@@ -848,33 +813,7 @@ footer {
 }
 
 .accept-terms label:hover {
-  color: #007bff;
-}
-
-.authentication-page {
-  background-color: #f9f1fb;
-}
-
-.authentication-container {
-  text-align: center;
-  width: 100%;
-  max-width: 420px;
-  margin: 5rem auto 3rem;
-  padding: 2rem;
-}
-
-.app-title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--dark-color);
-  margin-bottom: 1.5rem;
-}
-
-.authentication-card h2 {
-  text-align: center;
-  margin-bottom: 1.5rem;
-  font-size: 1.4rem;
-  color: var(--dark-color);
+  color: black;
 }
 
 .authentication-card .form-group {
@@ -912,63 +851,35 @@ footer {
   margin-top: 1rem;
 }
 
-.register-btn {
-  display: block;
-  width: 100%;
-  padding: 0.8rem;
-  background-color: var(--primary-color);
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s ease-in-out;
-  margin-top: 0.5rem;
+/* Grid layout for registration form */
+#registerForm .form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* two columns */
+  gap: 1rem 1.5rem; /* row gap, column gap */
 }
 
-.register-btn:hover {
-  background-color: #0056b3;
+#registerForm .form-grid .form-group {
+  display: flex;
+  flex-direction: column;
 }
 
-.authentication-footer {
-  text-align: center;
+#registerForm .form-grid .accept-terms {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Make the Register button and footer centered */
+#registerForm .form-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-top: 1.5rem;
-  font-size: 0.95rem;
-  color: #666;
+  gap: 0.5rem;
 }
 
-.authentication-footer a {
-  color: var(--primary-color);
-  text-decoration: none;
-}
-
-.authentication-footer a:hover {
-  text-decoration: underline;
-}
-
-/* LOG IN PAGE */
-
-.login-page .authentication-card h2 {
-  color: var(--dark-color);
-}
-
-.login-page .register-btn {
-  background-color: var(--primary-color);
-  color: #fff;
-}
-
-.login-page .register-btn:hover {
-  background-color: #0056b3;
-}
-
-.btn-secondary {
-  background-color: #f3f3f3;
-  color: #333;
-  padding: 0.6rem 1.2rem;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: 600;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-  transition: background 0.2s ease-in-out;
+/* Make button width fit nicely */
+#registerForm .register-btn {
+  width: 75%; 
+  text-align: center;
 }

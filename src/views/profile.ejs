@@ -35,18 +35,105 @@
     </nav>
   </header>
 
-  <main class="container">
-    <h1>Your Profile</h1>
-    <div class="card">
-      <p><strong>Name:</strong> <%= user && user.name %></p>
-      <p><strong>Email:</strong> <%= user && user.email %></p>
-      <div class="actions" style="display:flex; gap:.5rem; margin-top:1rem;">
-        <a class="btn" href="/notes/list">My Notes</a>
-        <a class="btn btn-secondary" href="/notes">New Note</a>
-        <a class="btn-logout" href="/users/logout">Logout</a>
+    <main class="container">
+    <h1></h1>
+      <% if (typeof error !== 'undefined' && error) { %>
+        <p class="error-banner"><%= error %></p>
+      <% } %>
+
+      <% if (typeof message !== 'undefined' && message) { %>
+        <p class="success-banner"><%= message %></p>
+      <% } %>
+    <div class="card profile-card">
+      <div class="profile-header">
+        <div class="profile-avatar">
+          <span><%= (user && user.name) ? user.name.charAt(0).toUpperCase() : 'U' %></span>
+        </div>
+        <div>
+          <h2 class="profile-name"><%= user && user.name %></h2>
+          <p class="profile-tagline">Manage your account details and get back to your notes.</p>
+        </div>
+      </div>
+
+      <div class="profile-details">
+        <div class="profile-field">
+          <span class="profile-field-label">Email</span>
+          <span class="profile-field-value"><%= user && user.email %></span>
+        </div>
+      </div>
+
+      <!-- Update display name -->
+      <section class="profile-section">
+        <h2>Display Name</h2>
+        <form action="/users/profile/name" method="POST" class="profile-form">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+          <div class="form-group">
+            <input
+              id="displayName"
+              type="text"
+              name="displayName"
+              required
+              minlength="2"
+              value="<%= user && user.name %>"
+            >
+          </div>
+
+          <button type="submit" class="btn">Update name</button>
+        </form>
+      </section>
+
+      <!-- Change password -->
+      <section class="profile-section">
+        <h2>Change Password</h2>
+        <form action="/users/profile/password" method="POST" class="profile-form">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+          <div class="form-group">
+            <label for="currentPassword">Current password</label>
+            <input
+              id="currentPassword"
+              type="password"
+              name="currentPassword"
+              autocomplete="current-password"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="newPassword">New password</label>
+            <input
+              id="newPassword"
+              type="password"
+              name="newPassword"
+              required
+              minlength="6"
+              autocomplete="new-password"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="confirmPassword">Confirm new password</label>
+            <input
+              id="confirmPassword"
+              type="password"
+              name="confirmPassword"
+              required
+              minlength="6"
+              autocomplete="new-password"
+            >
+          </div>
+
+          <button type="submit" class="btn">Change password</button>
+        </form>
+      </section>
+
+
+      <div class="profile-actions">
+        <a class="btn" href="/users/logout">Logout</a>
       </div>
     </div>
   </main>
+
 
   <footer>
     <div class="container">

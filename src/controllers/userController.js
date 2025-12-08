@@ -70,12 +70,52 @@ exports.postRegister = async (req, res, next) => {
     });
 
     if(error) {
+      const msg = (error.message || '').toLowerCase();
+
+      // Email is already registered
+      if (msg.includes('registered') || msg.includes('already')) {
+        console.warn(
+          `${ts()} [UserController] Registration failed - email already in use`,
+          {
+            email,
+          }
+        );
+
+        return res.status(400).render('register', {
+          title: 'Register',
+          error:
+            'That email is already registered. Try logging in instead or use a different email.',
+          csrfToken: req.csrfToken(),
+        });
+      }
+
+      // Generic registration error
       console.error(`${ts()} [UserController] Registration error`, {
         message: error.message,
       });
-      return res.render('register', {
+
+      return res.status(500).render('register', {
         title: 'Register',
-        error: error.message,
+        error:
+          'Something went wrong while creating your account. Please try again.',
+        csrfToken: req.csrfToken(),
+      });
+    }
+
+    // Supabase error - "user might still exist"
+    const user = data?.user;
+    const identities = user?.identities;
+
+    if(Array.isArray(identities) && identities.length === 0) {
+      // Email is already registered with the confirm-email enabled
+      console.warn(`${ts()} [UserController] Registration blocked - email already registered (fake user)`,{
+        email
+      });
+
+      return res.status(400).render('register', {
+        title: 'Register',
+        error:
+          'That email is already registered. Try logging in instead or reset your password.',
         csrfToken: req.csrfToken(),
       });
     }
@@ -83,14 +123,6 @@ exports.postRegister = async (req, res, next) => {
     console.log(`${ts()} [UserController] Registration success`, { email });
     // Redirects after successful login
     res.redirect('/users/login');
-
-    // Validate input
-    // Hash password
-    // Create user in database
-    // const user = await User.create({ username, email, password: hashedPassword });
-
-    // Set session
-    // req.session.user = { id: user.id, username: user.username };
   } catch (error) {
     console.error(`${ts()} [UserController] Registration error`, {
       message: error?.message,

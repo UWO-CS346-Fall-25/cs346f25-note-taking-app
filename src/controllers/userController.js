@@ -260,6 +260,8 @@ exports.getProfile = (req, res) => {
     title: 'Your Profile',
     csrfToken: req.csrfToken(),
     user: req.user,
+    error: req.query.error,
+    message: req.query.message,
   });
 };
 
